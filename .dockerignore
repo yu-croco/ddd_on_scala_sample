@@ -1,0 +1,7 @@
+logs
+.idea
+.idea_modules
+.classpath
+.project
+.settings
+*RUNNING_PID
