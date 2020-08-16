@@ -1,14 +1,9 @@
 name := "sample"
- 
-version := "1.0" 
-      
-lazy val `sample` = (project in file(".")).enablePlugins(PlayScala)
+version := "1.0"
 
-resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
-      
 resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
-scalaVersion := "2.12.11"
+ThisBuild / scalaVersion := "2.12.11"
 
 libraryDependencies ++= Seq(ehcache , ws , specs2 % Test , guice )
 
@@ -24,3 +19,17 @@ libraryDependencies ++= Seq(
   "org.joda"             % "joda-convert"           % "2.2.1",
   "com.github.tototoshi" %% "slick-joda-mapper"     % "2.4.1"
 )
+
+lazy val root = (project in file("."))
+  .enablePlugins(PlayScala)
+  .dependsOn(codegen)
+
+lazy val codegen = (project in file("codegen"))
+  .settings(
+    libraryDependencies ++= List(
+      "com.typesafe.slick"  %% "slick-codegen"  % "3.3.2",
+      "org.postgresql"      % "postgresql"      % "42.2.14",
+      "com.github.tminglei" %% "slick-pg"       % "0.19.0",
+      "ch.qos.logback"      % "logback-classic" % "1.2.3" % Runtime
+    )
+  )
