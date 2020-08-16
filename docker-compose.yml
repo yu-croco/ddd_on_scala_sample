@@ -11,3 +11,19 @@ services:
     volumes:
       - ".:/workspace"
     stdin_open: true
+    depends_on:
+      - db
+  db:
+    build:
+      context: .
+      dockerfile: DockerfileDb
+    ports:
+      - "9010:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+volumes:
+  db-data:
+    driver: local
