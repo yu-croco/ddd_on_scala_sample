@@ -3,7 +3,7 @@ version := "1.0"
 
 resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
-ThisBuild / scalaVersion := "2.12.11"
+ThisBuild / scalaVersion := "2.13.3"
 
 libraryDependencies ++= Seq(ehcache , ws , specs2 % Test , guice )
 
