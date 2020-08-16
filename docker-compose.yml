@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  web:
+  api:
     tty: true
     build: .
     security_opt:
@@ -10,6 +10,8 @@ services:
       - "9000:9000"
     volumes:
       - ".:/workspace"
+    environment:
+      - "DB_URL=jdbc:postgresql://db/scala_on_ddd_dev"
     stdin_open: true
     depends_on:
       - db
