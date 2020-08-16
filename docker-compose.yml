@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  web:
+    tty: true
+    build: .
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "9000:9000"
+    volumes:
+      - ".:/workspace"
+    stdin_open: true
