@@ -19,7 +19,8 @@ libraryDependencies ++= Seq(
   "org.joda"             % "joda-convert"           % "2.2.1",
   "com.github.tototoshi" %% "slick-joda-mapper"     % "2.4.1",
   "org.typelevel"        %% "cats-core"           % "2.1.1",
-  "net.codingwell"       %% "scala-guice"         % "4.2.11"
+  "net.codingwell"       %% "scala-guice"         % "4.2.11",
+  "org.atnos"            %% "eff"                 % "5.10.0"
 )
 
 lazy val root = (project in file("."))
