@@ -3,7 +3,7 @@ package usecase.task
 import com.google.inject.Inject
 import domain.task.{Task, TaskDetail, TaskName, TaskRepository}
 import domain.user.{UserId, UserRepository}
-import usecase.useCase.FutureOptionOps
+import usecase.usecase.FutureOptionOps
 
 import scala.concurrent.{ExecutionContext, Future}
 

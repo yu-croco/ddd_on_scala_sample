@@ -7,5 +7,5 @@ case class UseCaseError(error: NonEmptyList[(String, String)]) extends Throwable
 }
 
 object UseCaseError {
-  def apply(key: String, message: String) = UseCaseError(NonEmptyList.one(key -> message))
+  def apply(key: String, message: String): UseCaseError = UseCaseError(NonEmptyList.one(key -> message))
 }

@@ -20,5 +20,5 @@ object TaskId
 case class TaskName(value: String)
 object TaskName
 
-case class TaskDetail(value: TaskDetail)
+case class TaskDetail(value: String)
 object TaskDetail
