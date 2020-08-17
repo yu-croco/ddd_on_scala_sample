@@ -14,11 +14,11 @@ object Task {
     Task(None, taskName, taskDetail, user.id)
 }
 
-case class TaskId(value: Long)
+case class TaskId(value: Long) extends AnyVal
 object TaskId
 
-case class TaskName(value: String)
+case class TaskName(value: String) extends AnyVal
 object TaskName
 
-case class TaskDetail(value: String)
+case class TaskDetail(value: String) extends AnyVal
 object TaskDetail
