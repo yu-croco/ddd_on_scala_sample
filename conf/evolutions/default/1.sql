@@ -10,7 +10,7 @@ CREATE TABLE public.tasks
 (
     id BIGSERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    detail TEXT,
+    detail TEXT  NOT NULL,
     user_id BIGINT NOT NULL REFERENCES users(id)
 );
 
