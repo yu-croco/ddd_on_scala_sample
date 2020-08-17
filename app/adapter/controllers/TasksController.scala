@@ -1,7 +1,7 @@
 package adapter.controllers
 
 import adapter.controllers.helpers.JsonHelper
-import adapter.json.task.{CreateTask, CreateTaskJson, ToTaskJson}
+import adapter.json.task.{CreateTask, CreateTaskJson, ToJson}
 import com.google.inject.Inject
 import play.api.libs.json.JsValue
 import play.api.mvc.{AbstractController, Action, ControllerComponents}
@@ -13,7 +13,7 @@ class TasksController @Inject()(cc: ControllerComponents, createTaskUseCase: Cre
     implicit ec: ExecutionContext)
     extends AbstractController(cc)
     with JsonHelper
-    with ToTaskJson {
+    with ToJson {
 
   def create(): Action[JsValue] = Action.async(parse.json) { implicit request =>
     val body = request.body.validate[CreateTaskJson]

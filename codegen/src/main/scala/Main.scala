@@ -12,8 +12,16 @@ object Main {
     val user         = "postgres"
     val password     = "postgres"
 
-    SourceCodeGenerator.main(
-      Array(slickDriver, jdbcDriver, url, outputFolder, pkg, user, password)
+    SourceCodeGenerator.run(
+      slickDriver,
+      jdbcDriver,
+      url,
+      outputFolder,
+      pkg,
+      Some(user),
+      Some(password),
+      true,
+      true
     )
   }
 }

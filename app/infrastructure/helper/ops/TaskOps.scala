@@ -1,12 +1,12 @@
-package infrastructure.helper.ops.rowpos
+package infrastructure.helper.ops
 
-import cats.implicits.catsSyntaxOptionId
+import cats.implicits._
 import domain.task.{Task, TaskDetail, TaskId, TaskName}
 import domain.user.UserId
 import dto.Tables
 import dto.Tables.TasksRow
 
-trait TaskRowOps {
+trait TaskOps {
   implicit class TaskRow(task: Task) {
     def toRow: Tables.TasksRow = TasksRow(
       0,

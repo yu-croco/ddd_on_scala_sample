@@ -1,11 +1,14 @@
 package infrastructure.repositoryimpl
-
-import cats.implicits.catsSyntaxOptionId
-import domain.user.{User, UserId, UserName, UserRepository}
+import domain.user.{User, UserId, UserRepository}
+import dto.Tables.Users
 
 import scala.concurrent.Future
 
 class UserRepositoryImpl extends BaseRepositoryImpl with UserRepository {
+  import profile.api._
+
   override def findById(userId: UserId): Future[Option[User]] =
-    Future.successful(User(UserId(1), UserName("yuki")).some)
+    for {
+      dbResult <- db.run(Users.filter(_.id === userId.value).result.headOption)
+    } yield dbResult.map(_.toModel)
 }
