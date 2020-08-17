@@ -22,7 +22,7 @@ class TasksController @Inject()(cc: ControllerComponents, createTaskUseCase: Cre
       e => Future.successful(failureJson(e)),
       value => {
         val vo = CreateTask.convertToEntity(value)
-        createTaskUseCase.exec(vo.userId, vo.taskName, vo.taskDetail).successResponse
+        createTaskUseCase.exec(vo.userId, vo.taskName, vo.taskDetail).createSuccessfullyResponse
       }
     )
   }

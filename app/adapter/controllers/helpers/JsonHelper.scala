@@ -1,30 +1,28 @@
 package adapter.controllers.helpers
 
-import domain.task.Task
 import play.api.libs.json._
-import play.api.mvc.Results.Ok
+import play.api.mvc
+import play.api.mvc.Results.BadRequest
 import play.api.mvc.{Result, Results}
 
 trait JsonHelper {
-  def successJson(value: JsValue): Result =
-    Results
-      .Ok(
-        Json.toJson(
-          Json.obj(
-            "status" -> Ok.header.status,
-            "data"   -> value
-          )
+  def successJson(resultStatus: mvc.Results.Status, value: JsValue): Result =
+    resultStatus(
+      Json.toJson(
+        Json.obj(
+          "status" -> resultStatus.header.status,
+          "data"   -> value
         )
       )
-      .as(contentType = "application/json")
+    ).as(contentType = "application/json")
 
-  def failureJson(e: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]): Result =
+  def failureJson(error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]): Result =
     Results
-      .Ok(
+      .BadRequest(
         Json.toJson(
           Json.obj(
-            "status" -> Ok.header.status,
-            "data"   -> e.flatMap(_._2.map(_.message))
+            "status" -> BadRequest.header.status,
+            "data"   -> error.flatMap(_._2.map(_.message))
           )
         )
       )
