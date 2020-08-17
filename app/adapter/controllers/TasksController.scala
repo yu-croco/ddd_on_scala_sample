@@ -15,14 +15,18 @@ class TasksController @Inject()(cc: ControllerComponents, createTaskUseCase: Cre
     with JsonHelper
     with ToJson {
 
-  def create(): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def create: Action[JsValue] = Action.async(parse.json) { implicit request =>
     val body = request.body.validate[CreateTaskJson]
 
     body.fold(
       e => Future.successful(failureJson(e)),
       value => {
-        val vo = CreateTask.convertToEntity(value)
-        createTaskUseCase.exec(vo.userId, vo.taskName, vo.taskDetail).createSuccessfullyResponse
+        CreateTask
+          .convertToEntity(value)
+          .fold(
+            e => Future.successful(toVOConvertError(e)),
+            vo => createTaskUseCase.exec(vo.userId, vo.taskName, vo.taskDetail).createSuccessfullyResponse
+          )
       }
     )
   }

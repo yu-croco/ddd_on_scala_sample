@@ -1,9 +1,28 @@
 package adapter.controllers.helpers
 
+import adapter.helper.AdapterError
+import cats.data.NonEmptyList
+import play.api.http.Status
 import play.api.libs.json._
 import play.api.mvc
 import play.api.mvc.Results.BadRequest
 import play.api.mvc.{Result, Results}
+
+case class ErrorResponse(
+    status: Int,
+    message: NonEmptyList[(String, String)]
+)
+
+object ErrorResponse {
+  implicit val errorResponseJsonWrites: Writes[ErrorResponse] = (res: ErrorResponse) =>
+    Json.obj(
+      "status" -> res.status,
+      "errors" -> res.message.toList.map {
+        case (key, message) =>
+          Json.obj(key -> message)
+      }
+  )
+}
 
 trait JsonHelper {
   def successJson(resultStatus: mvc.Results.Status, value: JsValue): Result =
@@ -23,6 +42,18 @@ trait JsonHelper {
           Json.obj(
             "status" -> BadRequest.header.status,
             "data"   -> error.flatMap(_._2.map(_.message))
+          )
+        )
+      )
+      .as(contentType = "application/json")
+
+  def toVOConvertError(e: AdapterError): Result =
+    Results
+      .Status(Status.BAD_REQUEST)(
+        Json.toJson(
+          ErrorResponse(
+            Status.BAD_REQUEST,
+            e.detail
           )
         )
       )
