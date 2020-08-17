@@ -8,6 +8,25 @@ import play.api.mvc
 import play.api.mvc.Results.BadRequest
 import play.api.mvc.{Result, Results}
 
+case class RequestJsonTypeError(
+    status: Int,
+    error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]
+)
+object RequestJsonTypeError {
+  implicit val requestJsonTypeErrorJsonWrites: Writes[RequestJsonTypeError] = (request: RequestJsonTypeError) =>
+    Json.obj(
+      "status" -> request.status,
+      "errors" -> request.error.map {
+        case (key, messages) =>
+          messages.map { message =>
+            Json.obj(
+              key.toString -> message.messages
+            )
+          }
+      }
+  )
+}
+
 case class ErrorResponse(
     status: Int,
     message: NonEmptyList[(String, String)]
@@ -38,12 +57,7 @@ trait JsonHelper {
   def toRequestJsonTypeError(error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]): Result =
     Results
       .BadRequest(
-        Json.toJson(
-          Json.obj(
-            "status" -> BadRequest.header.status,
-            "data"   -> error.flatMap(_._2.map(_.message))
-          )
-        )
+        Json.toJson(RequestJsonTypeError(BadRequest.header.status, error))
       )
       .as(contentType = "application/json")
 
