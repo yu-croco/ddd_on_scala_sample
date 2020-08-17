@@ -12,6 +12,7 @@ class CreateTaskUseCase @Inject()(userRepository: UserRepository, taskRepository
 
   def exec(userId: UserId, taskName: TaskName, taskDetail: TaskDetail): Future[Task] =
     for {
+      // ToDo: Eff入れてuseCaseErrorに対応できるようにする
       user <- userRepository.findById(userId).toUseCaseError("user", "見つかりません")
       unsavedTask = Task.create(user, taskName, taskDetail)
       savedTask <- taskRepository.add(unsavedTask)
