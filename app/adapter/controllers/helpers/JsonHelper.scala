@@ -35,7 +35,7 @@ trait JsonHelper {
       )
     ).as(contentType = "application/json")
 
-  def failureJson(error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]): Result =
+  def toRequestJsonTypeError(error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]): Result =
     Results
       .BadRequest(
         Json.toJson(

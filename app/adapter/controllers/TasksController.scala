@@ -19,13 +19,13 @@ class TasksController @Inject()(cc: ControllerComponents, createTaskUseCase: Cre
     val body = request.body.validate[CreateTaskJson]
 
     body.fold(
-      e => Future.successful(failureJson(e)),
+      e => Future.successful(toRequestJsonTypeError(e)),
       value => {
         CreateTask
           .convertToEntity(value)
           .fold(
             e => Future.successful(toVOConvertError(e)),
-            vo => createTaskUseCase.exec(vo.userId, vo.taskName, vo.taskDetail).createSuccessfullyResponse
+            vo => createTaskUseCase.exec(vo.userId, vo.taskName, vo.taskDetail).toCreateSuccessfullyResponse
           )
       }
     )
