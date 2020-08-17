@@ -17,7 +17,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.play"    %% "play-slick-evolutions" % "5.0.0",
   "com.typesafe.slick"   %% "slick-codegen"         % "3.3.2",
   "org.joda"             % "joda-convert"           % "2.2.1",
-  "com.github.tototoshi" %% "slick-joda-mapper"     % "2.4.1"
+  "com.github.tototoshi" %% "slick-joda-mapper"     % "2.4.1",
+  "org.typelevel"        %% "cats-core"           % "2.1.1"
 )
 
 lazy val root = (project in file("."))
