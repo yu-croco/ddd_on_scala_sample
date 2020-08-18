@@ -18,11 +18,9 @@ object RequestJsonTypeError {
       "status" -> request.status,
       "errors" -> request.error.map {
         case (key, messages) =>
-          messages.map { message =>
-            Json.obj(
-              key.toString -> message.messages
-            )
-          }
+          Json.obj(
+            key.toString() -> messages.map(_.message).foldRight("")(_ ++ _)
+          )
       }
   )
 }

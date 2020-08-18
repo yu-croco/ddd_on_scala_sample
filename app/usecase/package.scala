@@ -2,6 +2,7 @@ package usecase
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
+import helper.UseCaseError
 
 package object usecase {
   implicit class FutureOptionOps[T](maybeFutureValue: Future[Option[T]])(implicit ex: ExecutionContext) {

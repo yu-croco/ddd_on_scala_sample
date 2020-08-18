@@ -1,4 +1,4 @@
-package usecase
+package usecase.helper
 
 import cats.data.NonEmptyList
 

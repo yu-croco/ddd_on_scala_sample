@@ -1,9 +1,7 @@
 package domain.task
 
-import domain.LongFactory.NonNegativeLongFactory
-import domain.StringFactory.NonEmptyStringFactory
+import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 import domain.user.{User, UserId}
-import org.checkerframework.checker.index.qual.NonNegative
 
 case class Task(
     id: Option[TaskId],
@@ -18,10 +16,10 @@ object Task {
 }
 
 case class TaskId(value: Long) extends AnyVal
-object TaskId                  extends NonNegativeLongFactory[TaskId]
+object TaskId                  extends NonNegativeLongVOFactory[TaskId]
 
 case class TaskName(value: String) extends AnyVal
-object TaskName                    extends NonEmptyStringFactory[TaskName]
+object TaskName                    extends NonEmptyStringVOFactory[TaskName]
 
 case class TaskDetail(value: String) extends AnyVal
-object TaskDetail                    extends NonEmptyStringFactory[TaskDetail]
+object TaskDetail                    extends NonEmptyStringVOFactory[TaskDetail]
