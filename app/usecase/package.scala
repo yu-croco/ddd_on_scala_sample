@@ -13,4 +13,12 @@ package object usecase {
         case Failure(exception)   => Future.failed(exception)
       }
   }
+
+  implicit class FutureOps[T](futureValue: Future[T])(implicit ex: ExecutionContext) {
+    def rollbackAndRaiseIfFutureFailed(key: String): Future[T] =
+      futureValue.transformWith {
+        case Success(value)     => Future.successful(value)
+        case Failure(exception) => Future.failed(UseCaseError(key, s"raise error. detail: ${exception.getMessage}"))
+      }
+  }
 }
