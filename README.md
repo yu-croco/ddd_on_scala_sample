@@ -8,7 +8,31 @@ Scalaを使ったDDDのサンプル
 ## 技術スタック
 - Scala v2.12.8
 - PlayFramework v2.8
+- cats
+- Eff
+- Domain-Driven Design
+- CQS
 - Docker
+
+## 構成
+
+```
+├── Dockerfile
+├── DockerfileDb
+├── README.md
+├── app
+│    ├── Module.scala // DI
+│    ├── adapter // Adapter layer(e.g. controllers)
+│    ├── domain // Domain layer
+│    ├── infrastructure // infra layer(e.g. DTO, repositoryImpl)
+│    └── usecase // useCase(application) layer
+├── bin
+├── build.sbt
+├── codegen
+├── conf
+├── docker-compose.yml
+...
+```
 
 ## 起動
 - Dockerで全部動かしたい場合
