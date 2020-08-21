@@ -7,6 +7,7 @@ import play.api.libs.json._
 import play.api.mvc
 import play.api.mvc.Results.BadRequest
 import play.api.mvc.{Result, Results}
+import usecase.helper.UseCaseError
 
 case class RequestJsonTypeError(
     status: Int,
@@ -66,6 +67,18 @@ trait JsonHelper {
           ErrorResponse(
             Status.BAD_REQUEST,
             e.detail
+          )
+        )
+      )
+      .as(contentType = "application/json")
+
+  def toFailedProcessError(e: UseCaseError): Result =
+    Results
+      .Status(Status.BAD_REQUEST)(
+        Json.toJson(
+          ErrorResponse(
+            Status.BAD_REQUEST,
+            e.error
           )
         )
       )
