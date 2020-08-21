@@ -7,7 +7,7 @@ import org.atnos.eff.future.{_future, fromFuture}
 import org.atnos.eff.{|=, Eff}
 
 package object usecase {
-  type UseCaseEither[T]  = UseCaseError Either T
+  type UseCaseEither[T]  = Either[UseCaseError, T]
   type _useCaseEither[R] = UseCaseEither |= R
 
   implicit class FutureOptionOps[T](maybeFutureValue: Future[Option[T]])(implicit ex: ExecutionContext) {
