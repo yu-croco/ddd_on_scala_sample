@@ -1,5 +1,6 @@
 package domain.hunter
 
+import domain.helper.DomainValidationError
 import domain.monster.Monster
 import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 
@@ -10,7 +11,7 @@ case class Hunter(
     defencePower: HunterDefensePower,
     offensePower: HunterOffensePower
 ) {
-  def attack(monster: Monster): Monster = monster.attackedBy(this.offensePower)
+  def attack(monster: Monster): Either[DomainValidationError, Monster] = monster.attackedBy(this.offensePower)
 }
 
 case class HunterId(value: Long) extends AnyVal

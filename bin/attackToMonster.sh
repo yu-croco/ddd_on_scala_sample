@@ -2,5 +2,5 @@
 curl \
 -X POST \
 -H 'Content-Type: application/json' \
--d '{"hunterId":1, "monsterId": 2}' \
+-d '{"hunterId":1, "monsterId": 1}' \
 "http://localhost:9001/hunters/attack"

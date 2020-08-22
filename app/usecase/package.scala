@@ -1,10 +1,12 @@
 package usecase
 
+import domain.helper.DomainValidationError
+
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
 import helper.UseCaseError
 import org.atnos.eff.future.{_future, fromFuture}
-import org.atnos.eff.{|=, Eff}
+import org.atnos.eff.{|=, either, Eff}
 
 package object usecase {
   type UseCaseEither[T]  = Either[UseCaseError, T]
@@ -27,5 +29,14 @@ package object usecase {
       }
 
     def toEff[R: _future]: Eff[R, T] = fromFuture(futureValue)
+  }
+
+  implicit class EitherDomainErrorOps[T](eitherValue: Either[DomainValidationError, T]) {
+    def toUCErrorIfLeft(): Either[UseCaseError, T] =
+      eitherValue.left.map(err => UseCaseError(err.detail))
+  }
+
+  implicit class EitherUCErrorOps[T](eitherValue: Either[UseCaseError, T]) {
+    def toEff[R: _useCaseEither]: Eff[R, T] = either.fromEither(eitherValue)
   }
 }
