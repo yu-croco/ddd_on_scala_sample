@@ -1,7 +1,7 @@
 package domain.hunter
 
+import domain.monster.Monster
 import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
-import domain.monster.{Monster, MonsterLife}
 
 case class Hunter(
     id: HunterId,

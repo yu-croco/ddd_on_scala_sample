@@ -2,9 +2,15 @@ import com.google.inject.AbstractModule
 import java.time.Clock
 
 import domain.hunter.HunterRepository
+import domain.monster.MonsterRepository
 import domain.task.TaskRepository
 import domain.user.UserRepository
-import infrastructure.repositoryimpl.{HunterRepositoryImpl, TaskRepositoryImpl, UserRepositoryImpl}
+import infrastructure.repositoryimpl.{
+  HunterRepositoryImpl,
+  MonsterRepositoryImpl,
+  TaskRepositoryImpl,
+  UserRepositoryImpl
+}
 import net.codingwell.scalaguice.ScalaModule
 
 /**
@@ -26,6 +32,7 @@ class Module extends AbstractModule with ScalaModule {
     bind[TaskRepository].to[TaskRepositoryImpl]
     bind[UserRepository].to[UserRepositoryImpl]
     bind[HunterRepository].to[HunterRepositoryImpl]
+    bind[MonsterRepository].to[MonsterRepositoryImpl]
   }
 
 }
