@@ -25,7 +25,7 @@ services:
       - "POSTGRES_USER=postgres"
       - "POSTGRES_PASSWORD=postgres"
     volumes:
-      - "db-data:/var/lib/postgresql/data"
+      - "ddd-db-data:/var/lib/postgresql/data"
 volumes:
-  db-data:
+  ddd-db-data:
     driver: local
