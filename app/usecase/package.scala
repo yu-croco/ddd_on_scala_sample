@@ -22,10 +22,10 @@ package object usecase {
   }
 
   implicit class FutureOps[T](futureValue: Future[T])(implicit ex: ExecutionContext) {
-    def rollbackAndRaiseIfFutureFailed(key: String): Future[T] =
+    def raiseIfFutureFailed(key: String): Future[T] =
       futureValue.transformWith {
         case Success(value)     => Future.successful(value)
-        case Failure(exception) => Future.failed(UseCaseError(key, s"raise error. detail: ${exception.getMessage}"))
+        case Failure(exception) => Future.failed(UseCaseError(key, s"更新に失敗しました。詳細: ${exception.getMessage}"))
       }
 
     def toEff[R: _future]: Eff[R, T] = fromFuture(futureValue)
