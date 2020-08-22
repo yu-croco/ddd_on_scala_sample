@@ -17,8 +17,8 @@ class AttackMonsterUseCase @Inject()(hunterRepository: HunterRepository, monster
     for {
       hunter  <- hunterRepository.findById(hunterId).toUCErrorIfNotExists("hunter").toEff
       monster <- monsterRepository.findById(monsterId).toUCErrorIfNotExists("monster").toEff
-      givenDamage = HunterAttackService.calculateDamage(hunter, monster)
-      damagedMonster <- hunter.attack(monster, givenDamage).toUCErrorIfLeft().toEff
+      hunterAttackDamage = HunterAttackService.calculateDamage(hunter, monster)
+      damagedMonster <- hunter.attack(monster, hunterAttackDamage).toUCErrorIfLeft().toEff
       savedMonster   <- monsterRepository.update(damagedMonster).raiseIfFutureFailed("monster").toEff
     } yield savedMonster
 }

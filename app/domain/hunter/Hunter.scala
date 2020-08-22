@@ -36,7 +36,4 @@ case class HunterOffensePower(value: Long) extends AnyVal {
 object HunterOffensePower extends NonNegativeLongVOFactory[HunterOffensePower]
 
 case class HunterAttackDamage(value: Long) extends AnyVal
-object HunterAttackDamage extends NonNegativeLongVOFactory[HunterAttackDamage] {
-  def calc(defence: MonsterDefensePower, offense: HunterOffensePower) =
-    HunterAttackDamage((offense + (offense - defence)).value)
-}
+object HunterAttackDamage                  extends NonNegativeLongVOFactory[HunterAttackDamage]
