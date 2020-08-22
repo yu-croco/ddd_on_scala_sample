@@ -13,7 +13,7 @@ case class Monster(
     attackDamage: Option[MonsterAttackDamage] = None
 ) {
   def attackedBy(givenDamage: HunterAttackDamage): Either[DomainValidationError, Monster] =
-    if (this.life.isZero) Left(DomainValidationError.create("monster", "既にモンスターは倒しています"))
+    if (this.life.isZero) Left(DomainValidationError.create("monster", "既にこのモンスターは倒しています"))
     else Right(this.copy(life = calculateRestOfLife(givenDamage)))
 
   private def calculateRestOfLife(givenDamage: HunterAttackDamage): MonsterLife = {
