@@ -11,10 +11,10 @@ package object usecase {
   type _useCaseEither[R] = UseCaseEither |= R
 
   implicit class FutureOptionOps[T](maybeFutureValue: Future[Option[T]])(implicit ex: ExecutionContext) {
-    def ifNoeExists(key: String, message: String): Future[T] =
+    def toUCErrorIfNotExists(key: String): Future[T] =
       maybeFutureValue.transformWith {
         case Success(Some(value)) => Future.successful(value)
-        case Success(None)        => Future.failed(UseCaseError(key, message))
+        case Success(None)        => Future.failed(UseCaseError(key, "見つかりません"))
         case Failure(exception)   => Future.failed(exception)
       }
   }

@@ -14,7 +14,7 @@ class CreateTaskUseCase @Inject()(userRepository: UserRepository, taskRepository
 
   def exec[R: _useCaseEither: _future](userId: UserId, taskName: TaskName, taskDetail: TaskDetail): Eff[R, Task] =
     for {
-      user <- userRepository.findById(userId).ifNoeExists("user", "見つかりません").toEff
+      user <- userRepository.findById(userId).toUCErrorIfNotExists("user").toEff
       unsavedTask = Task.create(user, taskName, taskDetail)
       savedTask <- taskRepository.add(unsavedTask).rollbackAndRaiseIfFutureFailed("task").toEff
     } yield savedTask

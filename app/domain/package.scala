@@ -1,6 +1,9 @@
+import cats.data.ValidatedNel
 import domain.helper.{DomainError, DomainValidationError}
 
 package object domain {
+  type ValidationResult[A] = ValidatedNel[DomainError, A]
+
   trait BaseFactory[R, V] {
     def className = this.getClass.getName
     def apply(value: R): V
@@ -21,4 +24,5 @@ package object domain {
     override def isValid(value: Long): Boolean     = value >= 0
     override def errorMessage(value: Long): String = s"$value should not be negative"
   }
+
 }

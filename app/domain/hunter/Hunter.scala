@@ -1,0 +1,29 @@
+package domain.hunter
+
+import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
+import domain.monster.{Monster, MonsterLife}
+
+case class Hunter(
+    id: HunterId,
+    name: HunterName,
+    life: HunterLife,
+    defencePower: HunterDefensePower,
+    offensePower: HunterOffensePower
+) {
+  def attack(monster: Monster): Monster = monster.attackedBy(this.offensePower)
+}
+
+case class HunterId(value: Long) extends AnyVal
+object HunterId                  extends NonNegativeLongVOFactory[HunterId]
+
+case class HunterName(value: String) extends AnyVal
+object HunterName                    extends NonEmptyStringVOFactory[HunterName]
+
+case class HunterLife(value: Long) extends AnyVal
+object HunterLife                  extends NonNegativeLongVOFactory[HunterLife]
+
+case class HunterDefensePower(value: Long) extends AnyVal
+object HunterDefensePower                  extends NonNegativeLongVOFactory[HunterDefensePower]
+
+case class HunterOffensePower(value: Long) extends AnyVal
+object HunterOffensePower                  extends NonNegativeLongVOFactory[HunterOffensePower]
