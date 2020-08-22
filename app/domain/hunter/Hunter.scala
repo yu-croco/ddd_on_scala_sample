@@ -11,7 +11,8 @@ case class Hunter(
     defencePower: HunterDefensePower,
     offensePower: HunterOffensePower
 ) {
-  def attack(monster: Monster): Either[DomainValidationError, Monster] = monster.attackedBy(this.offensePower)
+  def attack(monster: Monster, givenDamage: Long): Either[DomainValidationError, Monster] =
+    monster.attackedBy(givenDamage)
 }
 
 case class HunterId(value: Long) extends AnyVal

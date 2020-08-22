@@ -1,10 +1,7 @@
 package domain.monster
 
-import cats.data.Validated.{Invalid, Valid}
 import domain.helper.DomainValidationError
-import domain.hunter.HunterOffensePower
 import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
-import play.api.data.validation.ValidationResult
 
 case class Monster(
     id: MonsterId,
@@ -13,12 +10,12 @@ case class Monster(
     defencePower: MonsterDefensePower,
     offensePower: MonsterOffensePower
 ) {
-  def attackedBy(hunterOffensePower: HunterOffensePower): Either[DomainValidationError, Monster] =
+  def attackedBy(givenDamage: Long): Either[DomainValidationError, Monster] =
     if (this.life.isZero) Left(DomainValidationError.create("monster", "既にモンスターは倒しています"))
-    else Right(this.copy(life = calculateRestOfLife(hunterOffensePower)))
+    else Right(this.copy(life = calculateRestOfLife(givenDamage)))
 
-  private def calculateRestOfLife(hunterOffensePower: HunterOffensePower): MonsterLife = {
-    val diff = this.life.value - hunterOffensePower.value
+  private def calculateRestOfLife(givenDamage: Long): MonsterLife = {
+    val diff = this.life.value - givenDamage
 
     if (diff >= 0) MonsterLife(diff)
     else MonsterLife(0)
