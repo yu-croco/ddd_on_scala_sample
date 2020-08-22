@@ -1,6 +1,8 @@
 import cats.data.ValidatedNel
 import domain.helper.{DomainError, DomainValidationError}
 
+import scala.math.ScalaNumericAnyConversions
+
 package object domain {
   type ValidationResult[A] = ValidatedNel[DomainError, A]
 
