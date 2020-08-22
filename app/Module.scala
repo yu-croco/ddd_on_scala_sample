@@ -3,14 +3,7 @@ import java.time.Clock
 
 import domain.hunter.HunterRepository
 import domain.monster.MonsterRepository
-import domain.task.TaskRepository
-import domain.user.UserRepository
-import infrastructure.repositoryimpl.{
-  HunterRepositoryImpl,
-  MonsterRepositoryImpl,
-  TaskRepositoryImpl,
-  UserRepositoryImpl
-}
+import infrastructure.repositoryimpl.{HunterRepositoryImpl, MonsterRepositoryImpl}
 import net.codingwell.scalaguice.ScalaModule
 
 /**
@@ -29,8 +22,6 @@ class Module extends AbstractModule with ScalaModule {
     // Use the system clock as the default implementation of Clock
     bind(classOf[Clock]).toInstance(Clock.systemDefaultZone)
 
-    bind[TaskRepository].to[TaskRepositoryImpl]
-    bind[UserRepository].to[UserRepositoryImpl]
     bind[HunterRepository].to[HunterRepositoryImpl]
     bind[MonsterRepository].to[MonsterRepositoryImpl]
   }

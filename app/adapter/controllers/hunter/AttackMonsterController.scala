@@ -4,7 +4,6 @@ import adapter.controllers.FutureOps
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.hunter.attack.{AttackMonsterJson, AttackMonsterRequest, ToJson}
 import com.google.inject.Inject
-import domain.hunter.HunterId
 import org.atnos.eff.concurrent.Scheduler
 import org.atnos.eff.syntax.either._
 import org.atnos.eff.syntax.future._
@@ -36,7 +35,7 @@ class AttackMonsterController @Inject()(cc: ControllerComponents, useCase: Attac
             e => Future.successful(toVOConvertError(e)),
             vo =>
               useCase
-                .exec[Fx.fx2[UseCaseEither, TimedFuture]](vo.hunterId, vo.monsterId)
+                .run[Fx.fx2[UseCaseEither, TimedFuture]](vo.hunterId, vo.monsterId)
                 .runEither[UseCaseError]
                 .runAsync
                 .flatMap {
