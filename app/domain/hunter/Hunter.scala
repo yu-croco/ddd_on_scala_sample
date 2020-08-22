@@ -9,9 +9,10 @@ case class Hunter(
     name: HunterName,
     life: HunterLife,
     defencePower: HunterDefensePower,
-    offensePower: HunterOffensePower
+    offensePower: HunterOffensePower,
+    attackDamage: Option[HunterAttackDamage] = None
 ) {
-  def attack(monster: Monster, givenDamage: Long): Either[DomainValidationError, Monster] =
+  def attack(monster: Monster, givenDamage: HunterAttackDamage): Either[DomainValidationError, Monster] =
     monster.attackedBy(givenDamage)
 }
 
@@ -29,3 +30,6 @@ object HunterDefensePower                  extends NonNegativeLongVOFactory[Hunt
 
 case class HunterOffensePower(value: Long) extends AnyVal
 object HunterOffensePower                  extends NonNegativeLongVOFactory[HunterOffensePower]
+
+case class HunterAttackDamage(value: Long) extends AnyVal
+object HunterAttackDamage                  extends NonNegativeLongVOFactory[HunterAttackDamage]
