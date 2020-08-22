@@ -1,4 +1,4 @@
-# Scala on DDD
+# Scala x DDD sample
 
 Scalaを使ったDDDのサンプル
 
@@ -26,7 +26,7 @@ Scalaを使ったDDDのサンプル
 │    ├── domain // Domain layer
 │    ├── infrastructure // infra layer(e.g. DTO, repositoryImpl)
 │    └── usecase // useCase(application) layer
-├── bin
+├── bin // 動作確認用のツールなど
 ├── build.sbt
 ├── codegen
 ├── conf
@@ -40,6 +40,15 @@ Scalaを使ったDDDのサンプル
 - PlayFrameworkはローカルで動かしたい場合
     - `bin/run.sh`
 
+## Seed
+- `bin/seed.sh`でサンプルデータを投入できる
+
+## API動作確認
+### ハンター主体
+- ハンターがモンスターを攻撃する
+    - `bin/attackMonster.sh`
+
+### モンスター主体
 
 ## DBマイグレーション
 - [evolutions](https://www.playframework.com/documentation/2.8.x/Evolutions) と [slick-codegen](https://scala-slick.org/doc/3.2.0/code-generation.html) を使っている
