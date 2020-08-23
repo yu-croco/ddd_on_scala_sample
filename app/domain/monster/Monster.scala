@@ -1,7 +1,7 @@
 package domain.monster
 
 import domain.helper.DomainValidationError
-import domain.hunter.{HunterAttackDamage, HunterOffensePower}
+import domain.hunter.{Hunter, HunterAttackDamage, HunterDefensePower, HunterOffensePower}
 import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 
 case class Monster(
@@ -16,11 +16,14 @@ case class Monster(
     if (this.life.isZero) Left(DomainValidationError.create("monster", "既にこのモンスターは倒しています"))
     else Right(this.copy(life = calculateRestOfLife(givenDamage)))
 
+  def attack(hunter: Hunter, damage: MonsterAttackDamage) =
+    hunter.attackedBy(damage)
+
   private def calculateRestOfLife(givenDamage: HunterAttackDamage): MonsterLife = {
     val diff = this.life - givenDamage
 
     if (diff >= 0) diff
-    else MonsterLife(0)
+    else this.life.toZero()
   }
 }
 
@@ -34,6 +37,7 @@ case class MonsterLife(value: Long) extends AnyVal {
   def isZero                             = value == 0
   def -(givenDamage: HunterAttackDamage) = MonsterLife(this.value - givenDamage.value)
   def >=(v: Long): Boolean               = this.value >= v
+  def toZero()                           = MonsterLife(0)
 }
 object MonsterLife extends NonNegativeLongVOFactory[MonsterLife]
 
@@ -42,8 +46,11 @@ case class MonsterDefensePower(value: Long) extends AnyVal {
 }
 object MonsterDefensePower extends NonNegativeLongVOFactory[MonsterDefensePower]
 
-case class MonsterOffensePower(value: Long) extends AnyVal
-object MonsterOffensePower                  extends NonNegativeLongVOFactory[MonsterOffensePower]
+case class MonsterOffensePower(value: Long) extends AnyVal {
+  def -(dedence: HunterDefensePower) = MonsterOffensePower(this.value - dedence.value)
+  def +(other: MonsterOffensePower)  = MonsterOffensePower(this.value + other.value)
+}
+object MonsterOffensePower extends NonNegativeLongVOFactory[MonsterOffensePower]
 
 case class MonsterAttackDamage(value: Long) extends AnyVal
 object MonsterAttackDamage                  extends NonNegativeLongVOFactory[MonsterAttackDamage]

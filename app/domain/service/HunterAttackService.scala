@@ -10,6 +10,6 @@ object HunterAttackService {
 
   private def calc(offense: HunterOffensePower, defence: MonsterDefensePower) =
     HunterAttackDamage(
-      (offense + (offense - defence)).value
+      (offense + offense - defence).value
     )
 }

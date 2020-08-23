@@ -1,7 +1,7 @@
 package domain.hunter
 
 import domain.helper.DomainValidationError
-import domain.monster.{Monster, MonsterDefensePower}
+import domain.monster.{Monster, MonsterAttackDamage, MonsterDefensePower, MonsterOffensePower}
 import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 
 case class Hunter(
@@ -14,6 +14,17 @@ case class Hunter(
 ) {
   def attack(monster: Monster, givenDamage: HunterAttackDamage): Either[DomainValidationError, Monster] =
     monster.attackedBy(givenDamage)
+
+  def attackedBy(givenDamage: MonsterAttackDamage) =
+    if (this.life.isZero()) Left(DomainValidationError.create("hunter", "既にこのハンターは倒しています"))
+    else Right(this.copy(life = calculateRestOfLife(givenDamage)))
+
+  private def calculateRestOfLife(givenDamage: MonsterAttackDamage) = {
+    val diff = this.life - givenDamage
+
+    if (diff >= 0) diff
+    else this.life.toZero()
+  }
 }
 
 case class HunterId(value: Long) extends AnyVal
@@ -22,11 +33,18 @@ object HunterId                  extends NonNegativeLongVOFactory[HunterId]
 case class HunterName(value: String) extends AnyVal
 object HunterName                    extends NonEmptyStringVOFactory[HunterName]
 
-case class HunterLife(value: Long) extends AnyVal
-object HunterLife                  extends NonNegativeLongVOFactory[HunterLife]
+case class HunterLife(value: Long) extends AnyVal {
+  def isZero(): Boolean              = this.value == 0
+  def -(damage: MonsterAttackDamage) = HunterLife(this.value - damage.value)
+  def >=(v: Long): Boolean           = this.value >= v
+  def toZero(): HunterLife           = HunterLife(0)
+}
+object HunterLife extends NonNegativeLongVOFactory[HunterLife]
 
-case class HunterDefensePower(value: Long) extends AnyVal
-object HunterDefensePower                  extends NonNegativeLongVOFactory[HunterDefensePower]
+case class HunterDefensePower(value: Long) extends AnyVal {
+  def >=(offense: MonsterOffensePower): Boolean = this.value >= offense.value
+}
+object HunterDefensePower extends NonNegativeLongVOFactory[HunterDefensePower]
 
 case class HunterOffensePower(value: Long) extends AnyVal {
   def -(defence: MonsterDefensePower) = HunterOffensePower(this.value - defence.value)

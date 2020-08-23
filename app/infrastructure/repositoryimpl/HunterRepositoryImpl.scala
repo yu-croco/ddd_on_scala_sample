@@ -12,4 +12,6 @@ class HunterRepositoryImpl extends BaseRepositoryImpl with HunterRepository {
     for {
       hunterR <- db.run(Hunters.filter(_.id === id.value).result.headOption)
     } yield hunterR.map(_.toModel)
+
+  override def update(hunter: Hunter): Future[Hunter] = ???
 }
