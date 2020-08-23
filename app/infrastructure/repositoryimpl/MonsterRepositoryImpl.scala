@@ -18,8 +18,8 @@ class MonsterRepositoryImpl extends BaseRepositoryImpl with MonsterRepository {
       _ <- db.run(
         Monsters
           .filter(_.id === monster.id.value)
-          .map(m => m.life)
-          .update(monster.life.value)
+          .map(m => (m.name, m.life, m.defensePower, m.offensePower))
+          .update((monster.name.value, monster.life.value, monster.defencePower.value, monster.offensePower.value))
       )
     } yield monster
 }
