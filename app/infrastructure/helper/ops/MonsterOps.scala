@@ -9,7 +9,9 @@ trait MonsterOps {
       MonsterName(row.name),
       MonsterLife(row.life),
       MonsterDefensePower(row.defensePower),
-      MonsterOffensePower(row.offensePower)
+      MonsterOffensePower(row.offensePower),
+      None,
+      MonsterMaterial(row.material)
     )
   }
 }
