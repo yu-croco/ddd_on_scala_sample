@@ -20,7 +20,8 @@ CREATE TABLE public.monsters
     name TEXT NOT NULL,
     life BIGSERIAL NOT NULL,
     defense_power BIGSERIAL NOT NULL,
-    offense_power  BIGSERIAL NOT NULL
+    offense_power  BIGSERIAL NOT NULL,
+    material TEXT NOT NULL
 );
 
 CREATE TABLE public.hunters
