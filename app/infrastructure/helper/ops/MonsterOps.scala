@@ -1,17 +1,19 @@
 package infrastructure.helper.ops
 import domain.monster._
-import dto.Tables.MonstersRow
+import dto.Tables.{MonsterMaterialsRow, MonstersRow}
 
 trait MonsterOps {
   implicit class MonsterModel(row: MonstersRow) {
-    def toModel: Monster = Monster(
+    def toModel(materials: Seq[MonsterMaterialsRow]): Monster = Monster(
       MonsterId(row.id),
       MonsterName(row.name),
       MonsterLife(row.life),
       MonsterDefensePower(row.defensePower),
       MonsterOffensePower(row.offensePower),
       None,
-      Seq()
+      materials.map { material =>
+        MonsterMaterial(MonsterMaterialName(material.name), MonsterMaterialRarity(material.rarity))
+      }
     )
   }
 }
