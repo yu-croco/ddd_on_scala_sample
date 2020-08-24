@@ -11,7 +11,7 @@ case class Monster(
     defencePower: MonsterDefensePower,
     offensePower: MonsterOffensePower,
     attackDamage: Option[MonsterAttackDamage] = None,
-    material: MonsterMaterial
+    material: Seq[MonsterMaterial]
 ) {
   def attackedBy(givenDamage: HunterAttackDamage): Either[DomainValidationError, Monster] =
     if (this.life.isZero) Left(DomainValidationError.create("monster", "既にこのモンスターは倒しています"))
@@ -22,7 +22,7 @@ case class Monster(
 
   def takenMaterial(): Either[DomainValidationError, MonsterMaterial] =
     if (!this.life.isZero) Left(DomainValidationError.create("monster", "まだ生きているので素材を剥ぎ取れません"))
-    else Right(this.material)
+    else Right(this.material.head)
 
   private def calculateRestOfLife(givenDamage: HunterAttackDamage): MonsterLife = {
     val diff = this.life - givenDamage
@@ -52,13 +52,10 @@ case class MonsterDefensePower(value: Long) extends AnyVal {
 object MonsterDefensePower extends NonNegativeLongVOFactory[MonsterDefensePower]
 
 case class MonsterOffensePower(value: Long) extends AnyVal {
-  def -(dedence: HunterDefensePower) = MonsterOffensePower(this.value - dedence.value)
+  def -(defence: HunterDefensePower) = MonsterOffensePower(this.value - defence.value)
   def +(other: MonsterOffensePower)  = MonsterOffensePower(this.value + other.value)
 }
 object MonsterOffensePower extends NonNegativeLongVOFactory[MonsterOffensePower]
 
 case class MonsterAttackDamage(value: Long) extends AnyVal
 object MonsterAttackDamage                  extends NonNegativeLongVOFactory[MonsterAttackDamage]
-
-case class MonsterMaterial(value: String) extends AnyVal
-object MonsterMaterial                    extends NonEmptyStringVOFactory[MonsterMaterial]

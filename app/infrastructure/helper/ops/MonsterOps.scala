@@ -11,7 +11,7 @@ trait MonsterOps {
       MonsterDefensePower(row.defensePower),
       MonsterOffensePower(row.offensePower),
       None,
-      MonsterMaterial(row.material)
+      Seq()
     )
   }
 }
