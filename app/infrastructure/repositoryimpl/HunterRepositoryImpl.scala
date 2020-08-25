@@ -1,6 +1,7 @@
 package infrastructure.repositoryimpl
 
 import domain.hunter.{Hunter, HunterId, HunterRepository}
+import domain.monster.MonsterMaterial
 import dto.Tables.Hunters
 
 import scala.concurrent.Future
@@ -22,4 +23,6 @@ class HunterRepositoryImpl extends BaseRepositoryImpl with HunterRepository {
           .update((hunter.name.value, hunter.life.value, hunter.defencePower.value, hunter.offensePower.value))
       )
     } yield hunter
+
+  override def addMonsterMaterial(hunter: Hunter, monsterMaterial: MonsterMaterial): Future[Unit] = ???
 }
