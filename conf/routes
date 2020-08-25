@@ -7,6 +7,7 @@
 GET     /                           adapter.controllers.HomeController.index()
 
 POST    /hunters/attack     adapter.controllers.hunter.AttackMonsterController.create()
+POST    /hunters/get_material_from_monster adapter.controllers.hunter.GetMaterialFromMonsterController.create()
 POST    /monsters/attack    adapter.controllers.monster.AttackHunterController.create()
 
 # Map static resources from the /public folder to the /assets URL path
