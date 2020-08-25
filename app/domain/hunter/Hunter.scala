@@ -10,6 +10,7 @@ case class Hunter(
     life: HunterLife,
     defencePower: HunterDefensePower,
     offensePower: HunterOffensePower,
+    huntedMaterials: Seq[MonsterMaterial],
     attackDamage: Option[HunterAttackDamage] = None
 ) {
   def attack(monster: Monster, givenDamage: HunterAttackDamage): Either[DomainValidationError, Monster] =

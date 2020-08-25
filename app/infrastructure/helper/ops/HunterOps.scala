@@ -9,7 +9,8 @@ trait HunterOps {
       HunterName(row.name),
       HunterLife(row.life),
       HunterDefensePower(row.defensePower),
-      HunterOffensePower(row.offensePower)
+      HunterOffensePower(row.offensePower),
+      Seq()
     )
   }
 }
