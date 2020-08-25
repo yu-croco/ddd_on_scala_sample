@@ -17,3 +17,8 @@ INSERT INTO public.hunters VALUES
 
 INSERT INTO public.hunters_monster_materials VALUES
 (1, 1, 3);
+
+SELECT setval('monsters_id_seq', (SELECT MAX(id) FROM monsters));
+SELECT setval('monster_materials_id_seq', (SELECT MAX(id) FROM monster_materials));
+SELECT setval('hunters_id_seq', (SELECT MAX(id) FROM hunters));
+SELECT setval('hunters_monster_materials_id_seq', (SELECT MAX(id) FROM hunters_monster_materials));

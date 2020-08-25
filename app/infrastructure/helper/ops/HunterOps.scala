@@ -1,6 +1,5 @@
 package infrastructure.helper.ops
-import domain.hunter.{Hunter, HunterDefensePower, HunterId, HunterLife, HunterName, HunterOffensePower}
-import domain.monster.{MonsterMaterial, MonsterMaterialName, MonsterMaterialRarity}
+import domain.hunter._
 import dto.Tables._
 
 trait HunterOps {
@@ -12,7 +11,7 @@ trait HunterOps {
       HunterDefensePower(row.defensePower),
       HunterOffensePower(row.offensePower),
       materials.map { m =>
-        MonsterMaterial(MonsterMaterialName(m.name), MonsterMaterialRarity(m.rarity))
+        HuntedMonsterMaterial(HuntedMonsterMaterialName(m.name), HuntedMonsterMaterialRarity(m.rarity))
       }
     )
   }
