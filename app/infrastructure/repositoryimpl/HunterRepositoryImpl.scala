@@ -2,7 +2,7 @@ package infrastructure.repositoryimpl
 
 import domain.hunter.{Hunter, HunterId, HunterRepository}
 import domain.monster.MonsterMaterial
-import dto.Tables.Hunters
+import dto.Tables._
 
 import scala.concurrent.Future
 
@@ -24,5 +24,12 @@ class HunterRepositoryImpl extends BaseRepositoryImpl with HunterRepository {
       )
     } yield hunter
 
-  override def addMonsterMaterial(hunter: Hunter, monsterMaterial: MonsterMaterial): Future[Unit] = ???
+  // ToDo: headの代わりにエラーハンドリングする
+  override def addMonsterMaterial(hunter: Hunter, monsterMaterial: MonsterMaterial): Future[Unit] =
+    db.run {
+      for {
+        monsterMaterialR <- MonsterMaterials.filter(_.name === monsterMaterial.name.value).result.head
+        _                <- HuntersMonsterMaterials += HuntersMonsterMaterialsRow(1, hunter.id.value, monsterMaterialR.id)
+      } yield ()
+    }
 }

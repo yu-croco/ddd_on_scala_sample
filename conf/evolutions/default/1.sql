@@ -25,7 +25,16 @@ CREATE TABLE public.hunters
     offense_power  BIGSERIAL NOT NULL
 );
 
+CREATE TABLE public.hunters_monster_materials
+(
+    id BIGSERIAL PRIMARY KEY,
+    hunter_id BIGINT NOT NULL REFERENCES hunters(id),
+    monster_materials_id BIGINT NOT NULL REFERENCES monster_materials(id)
+);
+
 
 -- !Downs
-DROP TABLE public.tasks CASCADE;
-DROP TABLE public.users CASCADE;
+DROP TABLE public.hunters_monster_materials CASCADE;
+DROP TABLE public.hunters CASCADE;
+DROP TABLE public.monster_materials CASCADE;
+DROP TABLE public.monsters CASCADE;

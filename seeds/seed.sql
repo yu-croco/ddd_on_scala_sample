@@ -1,6 +1,5 @@
 -- CLAEN UP
-TRUNCATE monster_materials, monsters RESTART IDENTITY;
-TRUNCATE TABLE public.hunters;
+TRUNCATE hunters_monster_materials, monster_materials, monsters, hunters RESTART IDENTITY;
 
 -- INSERT SEED
 INSERT INTO public.monsters VALUES
@@ -15,3 +14,6 @@ INSERT INTO public.monster_materials VALUES
 
 INSERT INTO public.hunters VALUES
     (1, '新米ハンター', 1000, 100, 100);
+
+INSERT INTO public.hunters_monster_materials VALUES
+(1, 1, 3);
