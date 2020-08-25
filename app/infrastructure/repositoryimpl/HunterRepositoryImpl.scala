@@ -12,7 +12,20 @@ class HunterRepositoryImpl extends BaseRepositoryImpl with HunterRepository {
   override def findById(id: HunterId): Future[Option[Hunter]] =
     for {
       hunterR <- db.run(Hunters.filter(_.id === id.value).result.headOption)
-    } yield hunterR.map(_.toModel)
+      materials <- db.run(
+        HuntersMonsterMaterials
+          .filterOpt(hunterR)(_.hunterId === _.id)
+          .join(MonsterMaterials)
+          .on {
+            case (huntersMonsterMaterials, materials) =>
+              huntersMonsterMaterials.monsterMaterialsId === materials.id
+          }
+          .map {
+            case (_, materials) => materials
+          }
+          .result
+      )
+    } yield hunterR.map(_.toModel(materials))
 
   override def update(hunter: Hunter): Future[Hunter] =
     for {
