@@ -12,7 +12,7 @@ import scala.concurrent.ExecutionContext
 class GetMaterialFromMonsterUseCase @Inject()(hunterRepository: HunterRepository, monsterRepository: MonsterRepository)(
     implicit ec: ExecutionContext
 ) {
-  def run[R: _useCaseEither: _future](hunterId: HunterId, monsterId: MonsterId): Eff[R, MonsterMaterial] =
+  def program[R: _useCaseEither: _future](hunterId: HunterId, monsterId: MonsterId): Eff[R, MonsterMaterial] =
     for {
       hunter        <- hunterRepository.findById(hunterId).toUCErrorIfNotExists("hunter").toEff
       monster       <- monsterRepository.findById(monsterId).toUCErrorIfNotExists("monster").toEff

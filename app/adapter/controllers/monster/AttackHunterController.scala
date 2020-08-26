@@ -35,7 +35,7 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
             e => Future.successful(toVOConvertError(e)),
             vo =>
               useCase
-                .run[Fx.fx2[UseCaseEither, TimedFuture]](vo.hunterId, vo.monsterId)
+                .program[Fx.fx2[UseCaseEither, TimedFuture]](vo.hunterId, vo.monsterId)
                 .runEither[UseCaseError]
                 .runAsync
                 .flatMap {
