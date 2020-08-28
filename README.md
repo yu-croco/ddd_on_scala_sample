@@ -1,9 +1,10 @@
-# Scala x DDD sample
+# DDD on Scala
 
-Scalaを使ったDDDのサンプル
+Scala(PlayFramework)でDomain-Driven Design構成のAPIサンプル
 
 ## 概要
-モンスターとハンターが存在し、それぞれのもつ機能をDDDで実装した
+なんちゃってモンスターハンターを舞台としたモデリングを展開している。
+モンスターとハンターが存在し、それぞれのもつ機能をDDDで実装している。
 
 ユースケース図などはWIP
 
@@ -13,7 +14,7 @@ Scalaを使ったDDDのサンプル
 - cats
 - Eff
 - Domain-Driven Design
-- CQS
+- CQRS(CQS)
 - Docker
 
 ## 構成
