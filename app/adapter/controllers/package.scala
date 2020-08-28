@@ -10,7 +10,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 package object controllers extends JsonHelper {
   implicit class FutureOps[T](value: Future[T])(implicit ec: ExecutionContext) {
-    def toGetSuccessfullyResponse(implicit writes: Writes[T]): Future[Result] =
+    def toSuccessResponse(implicit writes: Writes[T]): Future[Result] =
       value
         .map(v => successJson(Ok, Json.toJson(v)))
         .returnErrorIfExists()

@@ -42,7 +42,7 @@ class HunterRepositoryImpl extends BaseRepositoryImpl with HunterRepository {
     db.run {
       for {
         monsterMaterialR <- MonsterMaterials.filter(_.name === monsterMaterial.name.value).result.head
-        _                <- HuntersMonsterMaterials += HuntersMonsterMaterialsRow(1, hunter.id.value, monsterMaterialR.id)
+        _                <- HuntersMonsterMaterials += HuntersMonsterMaterialsRow(0, hunter.id.value, monsterMaterialR.id)
       } yield ()
     }
 }

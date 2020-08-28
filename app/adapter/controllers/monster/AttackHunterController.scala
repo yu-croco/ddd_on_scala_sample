@@ -22,7 +22,7 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
     with JsonHelper
     with ToJson {
 
-  def create(): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def update(): Action[JsValue] = Action.async(parse.json) { implicit request =>
     implicit val scheduler: Scheduler = ExecutorServices.schedulerFromGlobalExecutionContext
     val body                          = request.body.validate[AttackHunterJson]
 
@@ -42,7 +42,7 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
                   case Right(value) => Future.successful(value)
                   case Left(e)      => Future.failed(e)
                 }
-                .toCreateResponse
+                .toSuccessResponse
           )
       }
     )

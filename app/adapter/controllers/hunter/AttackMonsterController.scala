@@ -22,7 +22,7 @@ class AttackMonsterController @Inject()(cc: ControllerComponents, useCase: Attac
     with JsonHelper
     with ToJson {
 
-  def create(): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def update(): Action[JsValue] = Action.async(parse.json) { implicit request =>
     implicit val scheduler: Scheduler = ExecutorServices.schedulerFromGlobalExecutionContext
     val body                          = request.body.validate[AttackMonsterJson]
 
@@ -42,7 +42,7 @@ class AttackMonsterController @Inject()(cc: ControllerComponents, useCase: Attac
                   case Right(value) => Future.successful(value)
                   case Left(e)      => Future.failed(e)
                 }
-                .toCreateResponse
+                .toSuccessResponse
           )
       }
     )
