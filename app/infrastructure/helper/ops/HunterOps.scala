@@ -4,7 +4,7 @@ import dto.Tables._
 
 trait HunterOps {
   implicit class HunterModel(row: HuntersRow) {
-    def toModel(materials: Seq[MonsterMaterialsRow]) = Hunter(
+    def toModel(materials: Seq[MonsterMaterialsRow] = Seq()) = Hunter(
       HunterId(row.id),
       HunterName(row.name),
       HunterLife(row.life),

@@ -2,7 +2,7 @@ package domain.helper
 
 import cats.data.NonEmptyList
 
-trait DomainError {
+trait DomainError extends Throwable {
   val detail: NonEmptyList[(String, String)]
 }
 

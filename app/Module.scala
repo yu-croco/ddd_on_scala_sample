@@ -3,8 +3,10 @@ import java.time.Clock
 
 import domain.hunter.HunterRepository
 import domain.monster.MonsterRepository
+import infrastructure.queryimpl.HunterFindQueryImpl
 import infrastructure.repositoryimpl.{HunterRepositoryImpl, MonsterRepositoryImpl}
 import net.codingwell.scalaguice.ScalaModule
+import query.HunterFindQuery
 
 /**
   * This class is a Guice module that tells Guice how to bind several
@@ -22,8 +24,12 @@ class Module extends AbstractModule with ScalaModule {
     // Use the system clock as the default implementation of Clock
     bind(classOf[Clock]).toInstance(Clock.systemDefaultZone)
 
+    // repository
     bind[HunterRepository].to[HunterRepositoryImpl]
     bind[MonsterRepository].to[MonsterRepositoryImpl]
+
+    // query
+    bind[HunterFindQuery].to[HunterFindQueryImpl]
   }
 
 }
