@@ -6,7 +6,7 @@ import adapter.json.hunter.findquery.ToJson
 import com.google.inject.Inject
 import domain.hunter.HunterId
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
-import query.HunterFindQuery
+import query.hunter.HunterFindQuery
 
 import scala.concurrent.{ExecutionContext, Future}
 

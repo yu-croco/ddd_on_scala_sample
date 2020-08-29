@@ -2,7 +2,7 @@ package infrastructure.queryimpl
 
 import domain.hunter.{Hunter, HunterId}
 import dto.Tables.{Hunters, HuntersMonsterMaterials, MonsterMaterials}
-import query.HunterFindQuery
+import query.hunter.HunterFindQuery
 
 import scala.concurrent.Future
 

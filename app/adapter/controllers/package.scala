@@ -33,6 +33,18 @@ package object controllers extends JsonHelper {
         .returnErrorIfExists()
   }
 
+  implicit class FutureSeqOps[T](value: Future[Seq[T]])(implicit ec: ExecutionContext) {
+    def toSuccessResponse(implicit writes: Writes[Seq[T]]): Future[Result] =
+      value
+        .map(v => successJson(Ok, Json.toJson(v)))
+        .returnErrorIfExists()
+
+    def toCreateResponse(implicit writes: Writes[Seq[T]]): Future[Result] =
+      value
+        .map(v => successJson(Created, Json.toJson(v)))
+        .returnErrorIfExists()
+  }
+
   implicit class FutureResultOps[T <: Result](futureResult: Future[T])(implicit ec: ExecutionContext) {
     def returnErrorIfExists(): Future[Result] = futureResult.recover {
       case e: UseCaseError => toFailedProcessError(e)

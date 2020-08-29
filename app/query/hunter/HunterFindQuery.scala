@@ -1,4 +1,4 @@
-package query
+package query.hunter
 
 import domain.hunter.{Hunter, HunterId}
 

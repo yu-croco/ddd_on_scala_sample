@@ -11,7 +11,7 @@ case class Monster(
     defencePower: MonsterDefensePower,
     offensePower: MonsterOffensePower,
     attackDamage: Option[MonsterAttackDamage] = None,
-    material: Seq[MonsterMaterial]
+    materials: Seq[MonsterMaterial]
 ) {
   def attackedBy(givenDamage: HunterAttackDamage): Either[DomainValidationError, Monster] =
     if (this.life.isZero) Left(DomainValidationError.create("monster", "既にこのモンスターは倒しています"))
@@ -22,7 +22,7 @@ case class Monster(
 
   def takenMaterial(): Either[DomainValidationError, MonsterMaterial] =
     if (!this.life.isZero) Left(DomainValidationError.create("monster", "まだ生きているので素材を剥ぎ取れません"))
-    else Right(this.material.head)
+    else Right(this.materials.head)
 
   private def calculateRestOfLife(givenDamage: HunterAttackDamage): MonsterLife = {
     val diff = this.life - givenDamage

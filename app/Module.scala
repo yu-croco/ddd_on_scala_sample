@@ -3,10 +3,11 @@ import java.time.Clock
 
 import domain.hunter.HunterRepository
 import domain.monster.MonsterRepository
-import infrastructure.queryimpl.HunterFindQueryImpl
+import infrastructure.queryimpl.{HunterFindQueryImpl, MonsterFindAllQueryImpl}
 import infrastructure.repositoryimpl.{HunterRepositoryImpl, MonsterRepositoryImpl}
 import net.codingwell.scalaguice.ScalaModule
-import query.HunterFindQuery
+import query.hunter.HunterFindQuery
+import query.monster.MonsterFindAllQuery
 
 /**
   * This class is a Guice module that tells Guice how to bind several
@@ -30,6 +31,7 @@ class Module extends AbstractModule with ScalaModule {
 
     // query
     bind[HunterFindQuery].to[HunterFindQueryImpl]
+    bind[MonsterFindAllQuery].to[MonsterFindAllQueryImpl]
   }
 
 }
