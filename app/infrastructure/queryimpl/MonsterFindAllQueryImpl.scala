@@ -21,13 +21,10 @@ class MonsterFindAllQueryImpl extends BaseQueryImpl with MonsterFindAllQuery {
   private type DbResult = Seq[(Tables.MonstersRow, Tables.MonsterMaterialsRow)]
 
   private def formatResponse(dbResult: DbResult): Seq[MonsterListView] =
-    dbResult
-      .groupBy(_._1)
-      .toSeq
-      .map {
-        case (monsterR, resources) => {
-          val materialsR = resources.map(_._2)
-          MonsterListView.fromRow(monsterR, materialsR)
-        }
+    dbResult.groupBy { case (monsters, _) => monsters }.toSeq.map {
+      case (monsterR, resources) => {
+        val materialsR = resources.map { case (_, materials) => materials }
+        MonsterListView.fromRow(monsterR, materialsR)
       }
+    }
 }
