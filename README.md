@@ -1,6 +1,5 @@
-# Scala x DDD sample
-
-Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDDDで実装した。
+# DDD on Scala
+Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDomain-Driven Designで実装した。
 
 ## ドメインモデル図
 WIP
@@ -30,7 +29,7 @@ WIP
 - cats
 - Eff
 - Domain-Driven Design
-- CQS
+- CQRS(CQS)
 - Docker
 
 ## 構成
