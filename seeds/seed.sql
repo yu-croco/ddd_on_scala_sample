@@ -13,7 +13,8 @@ INSERT INTO public.monster_materials VALUES
     (4, '電気袋', 2, 2);
 
 INSERT INTO public.hunters VALUES
-    (1, '新米ハンター', 1000, 100, 100);
+    (1, '新米ハンター', 1000, 100, 100),
+    (2, '中級ハンター', 3500, 480, 390);
 
 INSERT INTO public.hunters_monster_materials VALUES
 (1, 1, 3);

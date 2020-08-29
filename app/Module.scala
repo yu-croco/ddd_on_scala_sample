@@ -3,10 +3,10 @@ import java.time.Clock
 
 import domain.hunter.HunterRepository
 import domain.monster.MonsterRepository
-import infrastructure.queryimpl.{HunterFindQueryImpl, MonsterFindAllQueryImpl}
+import infrastructure.queryimpl.{HunterFindAllQueryImpl, MonsterFindAllQueryImpl}
 import infrastructure.repositoryimpl.{HunterRepositoryImpl, MonsterRepositoryImpl}
 import net.codingwell.scalaguice.ScalaModule
-import query.hunter.HunterFindQuery
+import query.hunter.HunterFindAllQuery
 import query.monster.MonsterFindAllQuery
 
 /**
@@ -30,7 +30,7 @@ class Module extends AbstractModule with ScalaModule {
     bind[MonsterRepository].to[MonsterRepositoryImpl]
 
     // query
-    bind[HunterFindQuery].to[HunterFindQueryImpl]
+    bind[HunterFindAllQuery].to[HunterFindAllQueryImpl]
     bind[MonsterFindAllQuery].to[MonsterFindAllQueryImpl]
   }
 

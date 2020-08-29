@@ -10,7 +10,7 @@ PUT    /hunters/attack     adapter.controllers.hunter.AttackMonsterController.up
 POST   /hunters/get_material_from_monster adapter.controllers.hunter.GetMaterialFromMonsterController.create()
 PUT    /monsters/attack    adapter.controllers.monster.AttackHunterController.update()
 
-GET    /hunters/:hunterId       adapter.controllers.hunter.HuntersController.show(hunterId: Long)
+GET    /hunters       adapter.controllers.hunter.HuntersController.index()
 
 GET    /monsters    adapter.controllers.monster.MonstersController.index()
 
