@@ -1,8 +1,17 @@
 # DDD on Scala
 Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDomain-Driven Designで実装した。
 
+## 構成
+アプリケーション全体としては以下の構成となっている。
+いわゆるオニオンアーキテクチャに近い形である。
+![architecture](./public/images/architecture.png)
+
+読み取りアクセス（GET）と書き込みアクセス（POST/PUT/DELETE）では処理フローを以下のように分けている（アーキテクチャレベルでの話ではないのでCQRSというよりはCQSかな？）。
+![access flow](./public/images/access_flow.png)
+
 ## ドメインモデル図
-WIP
+
+![domain model](./public/images/domain_model.png)
 
 ## ユースケース図
 ### ハンター主体のケース
@@ -29,7 +38,7 @@ WIP
 - cats
 - Eff
 - Domain-Driven Design
-- CQRS(CQS)
+- CQS
 - Docker
 
 ## 構成
