@@ -11,11 +11,7 @@ class MonsterFindAllQueryImpl extends BaseQueryImpl with MonsterFindAllQuery {
 
   override def findAll(): Future[Seq[MonsterListView]] =
     for {
-      dbResult <- db.run(
-        Monsters
-          .joinLeft(MonsterMaterials)
-          .on { case (monsters, materials) => monsters.id === materials.monsterId }
-          .result)
+      dbResult <- db.run(query())
     } yield formatResponse(dbResult)
 
   private type DbResult = Seq[(Tables.MonstersRow, Option[Tables.MonsterMaterialsRow])]
@@ -29,4 +25,10 @@ class MonsterFindAllQueryImpl extends BaseQueryImpl with MonsterFindAllQuery {
         MonsterListView.fromRow(monsterR, materialsR)
       }
     }
+
+  private def query() =
+    Monsters
+      .joinLeft(MonsterMaterials)
+      .on { case (monsters, materials) => monsters.id === materials.monsterId }
+      .result
 }

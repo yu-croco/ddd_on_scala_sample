@@ -11,20 +11,7 @@ class HunterFindAllQueryImpl extends BaseQueryImpl with HunterFindAllQuery {
 
   override def findAll(): Future[Seq[HunterListView]] =
     for {
-      dbResult <- db.run(
-        Hunters
-          .joinLeft(HuntersMonsterMaterials)
-          .joinLeft(MonsterMaterials)
-          .on {
-            case ((hunters, middleTable), materials) =>
-              hunters.id === middleTable.map(_.hunterId) &&
-                middleTable.map(_.monsterMaterialsId) === materials.id
-          }
-          .map {
-            case ((hunters, _), materials) => (hunters, materials)
-          }
-          .result
-      )
+      dbResult <- db.run(query())
     } yield formatToResponse(dbResult)
 
   type DbResult = Seq[(Tables.HuntersRow, Option[Tables.MonsterMaterialsRow])]
@@ -38,5 +25,19 @@ class HunterFindAllQueryImpl extends BaseQueryImpl with HunterFindAllQuery {
         HunterListView.fromRow(hunters, materials)
       }
     }
+
+  private def query() =
+    Hunters
+      .joinLeft(HuntersMonsterMaterials)
+      .joinLeft(MonsterMaterials)
+      .on {
+        case ((hunters, middleTable), materials) =>
+          hunters.id === middleTable.map(_.hunterId) &&
+            middleTable.map(_.monsterMaterialsId) === materials.id
+      }
+      .map {
+        case ((hunters, _), materials) => (hunters, materials)
+      }
+      .result
 
 }
