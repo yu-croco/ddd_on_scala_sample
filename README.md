@@ -1,11 +1,28 @@
 # Scala x DDD sample
 
-Scalaを使ったDDDのサンプル
+Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDDDで実装した。
 
-## 概要
-モンスターとハンターが存在し、それぞれのもつ機能をDDDで実装した
+## ドメインモデル図
+WIP
 
-ユースケース図などはWIP
+## ユースケース図
+### ハンター主体のケース
+- ハンターがモンスターを攻撃する
+    - 確認コマンド: `bin/attackMonster.sh`
+
+![hunter_attacks_monster](./public/images/hunter_attacks_monster.png)
+
+- ハンターが倒したモンスターから素材を剥ぎ取る
+    - 確認コマンド: `bin/getMaterialFromMonster.sh`
+
+![get_material_from_monster](./public/images/get_material_from_monster.png)
+
+### モンスター主体のケース
+- モンスターがハンターを攻撃する
+    - 確認コマンド: `bin/attackHunter.sh`
+
+![monster_attacks_hunter](./public/images/monster_attacks_hunter.png)
+
 
 ## 技術スタック
 - Scala v2.12.8
@@ -45,13 +62,6 @@ Scalaを使ったDDDのサンプル
 ## Seed
 - `bin/seed.sh`でサンプルデータを投入できる
 
-## API動作確認
-### ハンター主体
-- ハンターがモンスターを攻撃する
-    - `bin/attackMonster.sh`
-
-### モンスター主体
-
 ## DBマイグレーション
 - [evolutions](https://www.playframework.com/documentation/2.8.x/Evolutions) と [slick-codegen](https://scala-slick.org/doc/3.2.0/code-generation.html) を使っている
 - `conf/evolutions/default` 配下にSQLファイルを置いてサーバーを起動することで、DBマイグレーションが実行される
@@ -63,3 +73,4 @@ Scalaを使ったDDDのサンプル
 - [実践DDD本 第7章「ドメインサービス」～複数の物を扱うビジネスルール～](https://codezine.jp/article/detail/10318)
 - [混乱しがちなサービスという概念について](https://blog.j5ik2o.me/entry/2016/03/07/034646)
 - [scalazやcatsを使ってFunctional DDDを試してみる](https://qiita.com/uryyyyyyy/items/4a846be75f1554727f71)
+- [ScalaのEffを使ってDDDのUseCase層をいい感じに書いてみる](https://qiita.com/yu-croco/items/859328beda388f4f4393)
