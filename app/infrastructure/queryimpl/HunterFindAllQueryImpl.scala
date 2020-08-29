@@ -13,12 +13,12 @@ class HunterFindAllQueryImpl extends BaseQueryImpl with HunterFindAllQuery {
     for {
       dbResult <- db.run(
         Hunters
-          .join(HuntersMonsterMaterials)
-          .join(MonsterMaterials)
+          .joinLeft(HuntersMonsterMaterials)
+          .joinLeft(MonsterMaterials)
           .on {
             case ((hunters, middleTable), materials) =>
-              hunters.id === middleTable.hunterId &&
-                middleTable.monsterMaterialsId === materials.id
+              hunters.id === middleTable.map(_.hunterId) &&
+                middleTable.map(_.monsterMaterialsId) === materials.id
           }
           .map {
             case ((hunters, _), materials) => (hunters, materials)
@@ -27,12 +27,14 @@ class HunterFindAllQueryImpl extends BaseQueryImpl with HunterFindAllQuery {
       )
     } yield formatToResponse(dbResult)
 
-  type DbResult = Seq[(Tables.HuntersRow, Tables.MonsterMaterialsRow)]
+  type DbResult = Seq[(Tables.HuntersRow, Option[Tables.MonsterMaterialsRow])]
 
   def formatToResponse(dbResult: DbResult): Seq[HunterListView] =
     dbResult.groupBy { case (huntersR, _) => huntersR }.toSeq.map {
       case (hunters, resources) => {
-        val materials = resources.map(_._2)
+        val materials = resources.collect {
+          case (_, materials) if materials.isDefined => materials.get
+        }
         HunterListView.fromRow(hunters, materials)
       }
     }
