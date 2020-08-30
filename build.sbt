@@ -23,6 +23,15 @@ libraryDependencies ++= Seq(
   "org.atnos"            %% "eff"                 % "5.10.0"
 )
 
+val circeVersion = "0.12.3"
+
+libraryDependencies ++= Seq(
+  "io.circe" %% "circe-core",
+  "io.circe" %% "circe-generic",
+  "io.circe" %% "circe-parser"
+).map(_ % circeVersion)
+libraryDependencies += "com.dripower" %% "play-circe" % "2812.0"
+
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala)
   .dependsOn(codegen)
