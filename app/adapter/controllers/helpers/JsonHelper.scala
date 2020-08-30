@@ -1,8 +1,8 @@
 package adapter.controllers.helpers
 
+import adapter.controllers.helpers.RequestJsonTypeError.ErrorDetail
 import adapter.helper.AdapterError
 import cats.data.NonEmptyList
-
 import play.api.http.{Status, Writeable}
 import play.api.libs.json._
 import play.api.mvc
@@ -10,12 +10,13 @@ import play.api.mvc.Results.BadRequest
 import play.api.mvc.{Result, Results}
 import usecase.helper.UseCaseError
 
-case class RequestJsonTypeError(
-    status: Int,
-    error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]
-)
 object RequestJsonTypeError {
-  implicit val requestJsonTypeErrorJsonWrites: Writes[RequestJsonTypeError] = (request: RequestJsonTypeError) =>
+  case class ErrorDetail(
+      status: Int,
+      error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]
+  )
+
+  implicit val requestJsonTypeErrorJsonWrites: Writes[ErrorDetail] = (request: ErrorDetail) =>
     Json.obj(
       "status" -> request.status,
       "errors" -> request.error.map {
@@ -43,19 +44,6 @@ object ErrorResponse {
   )
 }
 
-trait CirceJsonHelper {
-  import io.circe.Json
-  import io.circe.syntax.EncoderOps
-
-  def successJson(resultStatus: mvc.Results.Status, value: Json)(implicit writeable: Writeable[Json]): Result =
-    resultStatus(
-      Json.obj(
-        "status" -> resultStatus.header.status.asJson,
-        "data"   -> value
-      )
-    ).as(contentType = "application/json")
-}
-
 trait JsonHelper {
   def successJson(resultStatus: mvc.Results.Status, value: JsValue): Result =
     resultStatus(
@@ -70,7 +58,7 @@ trait JsonHelper {
   def toRequestJsonTypeError(error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]): Result =
     Results
       .BadRequest(
-        Json.toJson(RequestJsonTypeError(BadRequest.header.status, error))
+        Json.toJson(ErrorDetail(BadRequest.header.status, error))
       )
       .as(contentType = "application/json")
 
@@ -97,4 +85,17 @@ trait JsonHelper {
         )
       )
       .as(contentType = "application/json")
+}
+
+trait CirceJsonHelper {
+  import io.circe.Json
+  import io.circe.syntax.EncoderOps
+
+  def successJson(resultStatus: mvc.Results.Status, value: Json)(implicit writeable: Writeable[Json]): Result =
+    resultStatus(
+      Json.obj(
+        "status" -> resultStatus.header.status.asJson,
+        "data"   -> value
+      )
+    ).as(contentType = "application/json")
 }
