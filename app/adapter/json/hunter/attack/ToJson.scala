@@ -1,16 +1,15 @@
 package adapter.json.hunter.attack
 
-import domain.monster.Monster
-import play.api.libs.json.{Json, Writes}
+import domain.monster._
+import io.circe.Encoder
 
 trait ToJson {
-  implicit def toJson: Writes[Monster] = (json: Monster) => {
-    Json.obj(
-      "id"           -> json.id.value,
-      "name"         -> json.name.value,
-      "life"         -> json.life.value,
-      "offensePower" -> json.offensePower.value,
-      "defensePower" -> json.defencePower.value
-    )
-  }
+  implicit val monsterIdEncoder: Encoder[MonsterId]                     = Encoder[Long].contramap(_.value)
+  implicit val monsterNameEncoder: Encoder[MonsterName]                 = Encoder[String].contramap(_.value)
+  implicit val monsterLifeEncoder: Encoder[MonsterLife]                 = Encoder[Long].contramap(_.value)
+  implicit val monsterOffensePowerEncoder: Encoder[MonsterOffensePower] = Encoder[Long].contramap(_.value)
+  implicit val monsterDefensePowerEncoder: Encoder[MonsterDefensePower] = Encoder[Long].contramap(_.value)
+  implicit val materialNameEncoder: Encoder[MonsterMaterialName]        = Encoder[String].contramap(_.value)
+  implicit val materialRarityEncoder: Encoder[MonsterMaterialRarity]    = Encoder[Long].contramap(_.value)
+  implicit val attackDamageEncoder: Encoder[MonsterAttackDamage]        = Encoder[Long].contramap(_.value)
 }

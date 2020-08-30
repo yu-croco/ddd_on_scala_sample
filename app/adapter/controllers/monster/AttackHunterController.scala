@@ -1,7 +1,7 @@
 package adapter.controllers.monster
 
 import adapter.FutureEitherStack
-import adapter.controllers.JsonHel.FutureJsonOps
+import adapter.controllers.CirceJsonOps.FutureJsonOps
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.monster.attack.{AttackHunterJson, AttackHunterRequest, ToJson}
 import com.google.inject.Inject
@@ -46,7 +46,7 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
                   case Right(value) => Future.successful(value.asJson)
                   case Left(e)      => Future.failed(e)
                 }
-                .toSuccessResponse2
+                .toSuccessResponse
           )
       }
     )

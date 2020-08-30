@@ -1,6 +1,7 @@
 package adapter
 
-import adapter.controllers.helpers.{JsonHelper}
+import adapter.controllers.helpers.JsonHelper
+
 import play.api.http.Writeable
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Result
@@ -10,23 +11,15 @@ import usecase.helper.UseCaseError
 import scala.concurrent.{ExecutionContext, Future}
 
 package object controllers extends JsonHelper {
-  object JsonHel {
+  object CirceJsonOps {
     import io.circe.Json
     implicit class FutureJsonOps(value: Future[Json])(implicit ec: ExecutionContext) {
-      def toSuccessResponse2(implicit writeable: Writeable[Json]): Future[Result] =
-        value.map(v => Ok(v))
-    }
-  }
-  implicit class FutureOps[T](value: Future[T])(implicit ec: ExecutionContext) {
-    def toSuccessResponse(implicit writes: Writes[T]): Future[Result] =
-      value
-        .map(v => successJson(Ok, Json.toJson(v)))
-        .returnErrorIfExists()
+      def toSuccessResponse(implicit writeable: Writeable[Json]): Future[Result] =
+        value.map(v => Ok(v)).returnErrorIfExists()
 
-    def toCreateResponse(implicit writes: Writes[T]): Future[Result] =
-      value
-        .map(v => successJson(Created, Json.toJson(v)))
-        .returnErrorIfExists()
+      def toCreateResponse(implicit writeable: Writeable[Json]): Future[Result] =
+        value.map(v => Created(v)).returnErrorIfExists()
+    }
   }
 
   implicit class FutureOptionOps[T](value: Future[Option[T]])(implicit ec: ExecutionContext) {
