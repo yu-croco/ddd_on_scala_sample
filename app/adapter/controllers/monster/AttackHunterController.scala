@@ -1,14 +1,17 @@
 package adapter.controllers.monster
 
 import adapter.FutureEitherStack
-import adapter.controllers.FutureOps
+import adapter.controllers.JsonHel.FutureJsonOps
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.monster.attack.{AttackHunterJson, AttackHunterRequest, ToJson}
 import com.google.inject.Inject
+import io.circe.generic.auto._
+import io.circe.syntax._
 import org.atnos.eff.ExecutorServices
 import org.atnos.eff.concurrent.Scheduler
 import org.atnos.eff.syntax.either._
 import org.atnos.eff.syntax.future._
+import play.api.libs.circe._
 import play.api.libs.json.JsValue
 import play.api.mvc.{AbstractController, Action, ControllerComponents}
 import usecase.helper.UseCaseError
@@ -20,7 +23,8 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
     implicit ec: ExecutionContext)
     extends AbstractController(cc)
     with JsonHelper
-    with ToJson {
+    with ToJson
+    with Circe {
 
   def update(): Action[JsValue] = Action.async(parse.json) { implicit request =>
     implicit val scheduler: Scheduler = ExecutorServices.schedulerFromGlobalExecutionContext
@@ -39,10 +43,10 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
                 .runEither[UseCaseError]
                 .runAsync
                 .flatMap {
-                  case Right(value) => Future.successful(value)
+                  case Right(value) => Future.successful(value.asJson)
                   case Left(e)      => Future.failed(e)
                 }
-                .toSuccessResponse
+                .toSuccessResponse2
           )
       }
     )
