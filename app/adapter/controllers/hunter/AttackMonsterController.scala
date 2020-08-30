@@ -32,7 +32,7 @@ class AttackMonsterController @Inject()(cc: ControllerComponents, useCase: Attac
 
     body.fold(
       e => Future.successful(toRequestJsonTypeError(e)),
-      value => {
+      value =>
         AttackMonsterRequest
           .convertToEntity(value)
           .fold(
@@ -47,8 +47,7 @@ class AttackMonsterController @Inject()(cc: ControllerComponents, useCase: Attac
                   case Left(e)      => Future.failed(e)
                 }
                 .toSuccessResponse
-          )
-      }
+        )
     )
   }
 }

@@ -32,7 +32,7 @@ class GetMaterialFromMonsterController @Inject()(cc: ControllerComponents, useCa
 
     body.fold(
       e => Future.successful(toRequestJsonTypeError(e)),
-      value => {
+      value =>
         AttackMonsterRequest
           .convertToEntity(value)
           .fold(
@@ -47,8 +47,7 @@ class GetMaterialFromMonsterController @Inject()(cc: ControllerComponents, useCa
                   case Left(e)      => Future.failed(e)
                 }
                 .toCreateResponse
-          )
-      }
+        )
     )
   }
 }

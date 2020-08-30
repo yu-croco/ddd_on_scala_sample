@@ -32,7 +32,7 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
 
     body.fold(
       e => Future.successful(toRequestJsonTypeError(e)),
-      value => {
+      value =>
         AttackHunterRequest
           .convertToEntity(value)
           .fold(
@@ -47,8 +47,7 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
                   case Left(e)      => Future.failed(e)
                 }
                 .toSuccessResponse
-          )
-      }
+        )
     )
   }
 }

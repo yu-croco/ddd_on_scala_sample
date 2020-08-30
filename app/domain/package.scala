@@ -3,8 +3,6 @@ import domain.helper.{DomainError, DomainValidationError}
 import cats.implicits._
 
 package object domain {
-  type ValidationResult[A] = ValidatedNel[DomainError, A]
-
   trait BaseFactory[R, V] {
     def className = this.getClass.getSimpleName
     def apply(value: R): V
