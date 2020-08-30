@@ -1,5 +1,6 @@
 import cats.data.ValidatedNel
 import domain.helper.{DomainError, DomainValidationError}
+import cats.implicits._
 
 package object domain {
   type ValidationResult[A] = ValidatedNel[DomainError, A]
@@ -13,6 +14,8 @@ package object domain {
 
     def create(value: R): Either[DomainError, V] =
       Either.cond(isValid(value), apply(value), DomainValidationError.create(className, errorMessage(value)))
+
+    def createNel(value: R): ValidatedNel[DomainError, V] = create(value).toValidatedNel
   }
 
   trait NonEmptyStringVOFactory[T] extends BaseFactory[String, T] {
