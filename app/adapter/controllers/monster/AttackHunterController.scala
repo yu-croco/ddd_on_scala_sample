@@ -1,7 +1,7 @@
 package adapter.controllers.monster
 
-import adapter.FutureEitherStack
 import adapter.controllers.CirceCirceJsonOps.FutureJsonOps
+import adapter.controllers.FutureEitherStack
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.monster.attack.{AttackHunterJson, AttackHunterRequest, ToJson}
 import com.google.inject.Inject

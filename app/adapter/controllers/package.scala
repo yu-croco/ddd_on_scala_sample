@@ -2,15 +2,19 @@ package adapter
 
 import adapter.controllers.JsonOps.toFailedProcessError
 import adapter.controllers.helpers.{CirceJsonHelper, JsonHelper}
+import org.atnos.eff.{Fx, TimedFuture}
 import play.api.http.Writeable
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.Result
 import play.api.mvc.Results.{Created, Ok}
 import usecase.helper.UseCaseError
+import usecase.usecase.UseCaseEither
 
 import scala.concurrent.{ExecutionContext, Future}
 
 package object controllers {
+  type FutureEitherStack = Fx.fx2[TimedFuture, UseCaseEither]
+
   implicit class FutureResultOps[T <: Result](futureResult: Future[T])(implicit ec: ExecutionContext) {
     def returnErrorIfExists(): Future[Result] = futureResult.recover {
       case e: UseCaseError => toFailedProcessError(e)

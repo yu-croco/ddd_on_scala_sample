@@ -1,6 +1,5 @@
 package adapter.controllers.hunter
 
-import adapter.FutureEitherStack
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.hunter.getmaterial.{AttackMonsterRequest, GetMaterialFromMonsterJson, ToJson}
 import com.google.inject.Inject
@@ -16,6 +15,8 @@ import usecase.hunter.GetMaterialFromMonsterUseCase
 import io.circe.generic.auto._
 import io.circe.syntax._
 import adapter.controllers.CirceCirceJsonOps.FutureJsonOps
+import adapter.controllers.FutureEitherStack
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class GetMaterialFromMonsterController @Inject()(cc: ControllerComponents, useCase: GetMaterialFromMonsterUseCase)(

@@ -1,10 +1,12 @@
 package adapter.controllers.hunter
 
-import adapter.FutureEitherStack
 import adapter.controllers.CirceCirceJsonOps.FutureJsonOps
+import adapter.controllers.FutureEitherStack
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.hunter.attack.{AttackMonsterJson, AttackMonsterRequest, ToJson}
 import com.google.inject.Inject
+import io.circe.generic.auto._
+import io.circe.syntax._
 import org.atnos.eff.ExecutorServices
 import org.atnos.eff.concurrent.Scheduler
 import org.atnos.eff.syntax.either._
@@ -14,9 +16,6 @@ import play.api.libs.json.JsValue
 import play.api.mvc.{AbstractController, Action, ControllerComponents}
 import usecase.helper.UseCaseError
 import usecase.hunter.AttackMonsterUseCase
-import io.circe.generic.auto._
-import io.circe.syntax._
-import adapter.controllers.CirceCirceJsonOps.FutureJsonOps
 
 import scala.concurrent.{ExecutionContext, Future}
 
