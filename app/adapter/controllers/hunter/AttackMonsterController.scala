@@ -5,6 +5,7 @@ import adapter.controllers.FutureEitherStack
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.hunter.attack.{AttackMonsterJson, AttackMonsterRequest, ToJson}
 import com.google.inject.Inject
+import domain.hunter.HunterId
 import io.circe.generic.auto._
 import io.circe.syntax._
 import org.atnos.eff.ExecutorServices
@@ -26,7 +27,7 @@ class AttackMonsterController @Inject()(cc: ControllerComponents, useCase: Attac
     with ToJson
     with Circe {
 
-  def update(): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def update(hunterId: Long): Action[JsValue] = Action.async(parse.json) { implicit request =>
     implicit val scheduler: Scheduler = ExecutorServices.schedulerFromGlobalExecutionContext
     val body                          = request.body.validate[AttackMonsterJson]
 
@@ -34,7 +35,7 @@ class AttackMonsterController @Inject()(cc: ControllerComponents, useCase: Attac
       e => Future.successful(toRequestJsonTypeError(e)),
       value =>
         AttackMonsterRequest
-          .convertToEntity(value)
+          .convertToEntity(value, hunterId)
           .fold(
             e => Future.successful(toVOConvertError(e)),
             vo =>

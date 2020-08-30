@@ -6,9 +6,9 @@
 # An example controller showing a sample home page
 GET     /                           adapter.controllers.HomeController.index()
 
-PUT    /hunters/attack     adapter.controllers.hunter.AttackMonsterController.update()
-POST   /hunters/get_material_from_monster adapter.controllers.hunter.GetMaterialFromMonsterController.create()
-PUT    /monsters/attack    adapter.controllers.monster.AttackHunterController.update()
+PUT    /hunters/:hunterId/attack                    adapter.controllers.hunter.AttackMonsterController.update(hunterId: Long)
+POST   /hunters/:hunterId/get_material_from_monster adapter.controllers.hunter.GetMaterialFromMonsterController.create(hunterId: Long)
+PUT    /monsters/:monsterId/attack                             adapter.controllers.monster.AttackHunterController.update(monsterId: Long)
 
 GET    /hunters       adapter.controllers.hunter.HuntersController.index()
 

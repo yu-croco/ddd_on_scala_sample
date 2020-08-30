@@ -7,7 +7,7 @@ import domain.hunter.HunterId
 import domain.monster.MonsterId
 import play.api.libs.json.{Json, Reads}
 
-case class GetMaterialFromMonsterJson(hunterId: Long, monsterId: Long)
+case class GetMaterialFromMonsterJson(monsterId: Long)
 
 object GetMaterialFromMonsterJson {
   implicit def jsonReads: Reads[GetMaterialFromMonsterJson] = Json.reads[GetMaterialFromMonsterJson]
@@ -16,11 +16,12 @@ object GetMaterialFromMonsterJson {
 case class GetMaterialFromMonster(hunterId: HunterId, monsterId: MonsterId)
 
 object AttackMonsterRequest {
-  def convertToEntity(json: GetMaterialFromMonsterJson): Validated[AdapterError, GetMaterialFromMonster] = {
-    val hunterId  = HunterId.createNel(json.hunterId)
+  def convertToEntity(json: GetMaterialFromMonsterJson,
+                      hunterId: Long): Validated[AdapterError, GetMaterialFromMonster] = {
+    val hId       = HunterId.createNel(hunterId)
     val monsterId = MonsterId.createNel(json.monsterId)
 
-    (hunterId, monsterId)
+    (hId, monsterId)
       .mapN(GetMaterialFromMonster.apply)
       .leftMap(e => AdapterError(e.flatMap(_.detail)))
   }

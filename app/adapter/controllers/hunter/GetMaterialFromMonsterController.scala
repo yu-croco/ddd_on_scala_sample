@@ -26,7 +26,7 @@ class GetMaterialFromMonsterController @Inject()(cc: ControllerComponents, useCa
     with ToJson
     with Circe {
 
-  def create(): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def create(hunterId: Long): Action[JsValue] = Action.async(parse.json) { implicit request =>
     implicit val scheduler: Scheduler = ExecutorServices.schedulerFromGlobalExecutionContext
     val body                          = request.body.validate[GetMaterialFromMonsterJson]
 
@@ -34,7 +34,7 @@ class GetMaterialFromMonsterController @Inject()(cc: ControllerComponents, useCa
       e => Future.successful(toRequestJsonTypeError(e)),
       value =>
         AttackMonsterRequest
-          .convertToEntity(value)
+          .convertToEntity(value, hunterId)
           .fold(
             e => Future.successful(toVOConvertError(e)),
             vo =>

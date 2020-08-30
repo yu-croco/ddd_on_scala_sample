@@ -26,7 +26,7 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
     with ToJson
     with Circe {
 
-  def update(): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def update(monsterId: Long): Action[JsValue] = Action.async(parse.json) { implicit request =>
     implicit val scheduler: Scheduler = ExecutorServices.schedulerFromGlobalExecutionContext
     val body                          = request.body.validate[AttackHunterJson]
 
@@ -34,7 +34,7 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
       e => Future.successful(toRequestJsonTypeError(e)),
       value =>
         AttackHunterRequest
-          .convertToEntity(value)
+          .convertToEntity(value, monsterId)
           .fold(
             e => Future.successful(toVOConvertError(e)),
             vo =>
