@@ -1,6 +1,7 @@
 package adapter.json.hunter.getmaterial
 
 import adapter.helper.AdapterError
+import cats.data.Validated
 import cats.implicits._
 import domain.hunter.HunterId
 import domain.monster.MonsterId
@@ -15,13 +16,12 @@ object GetMaterialFromMonsterJson {
 case class GetMaterialFromMonster(hunterId: HunterId, monsterId: MonsterId)
 
 object AttackMonsterRequest {
-  def convertToEntity(json: GetMaterialFromMonsterJson): Either[AdapterError, GetMaterialFromMonster] = {
+  def convertToEntity(json: GetMaterialFromMonsterJson): Validated[AdapterError, GetMaterialFromMonster] = {
     val hunterId  = HunterId.createNel(json.hunterId)
     val monsterId = MonsterId.createNel(json.monsterId)
 
     (hunterId, monsterId)
       .mapN(GetMaterialFromMonster.apply)
-      .toEither
       .leftMap(e => AdapterError(e.flatMap(_.detail)))
   }
 }
