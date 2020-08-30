@@ -5,7 +5,7 @@ package object domain {
   type ValidationResult[A] = ValidatedNel[DomainError, A]
 
   trait BaseFactory[R, V] {
-    def className = this.getClass.getName
+    def className = this.getClass.getSimpleName
     def apply(value: R): V
 
     def isValid(value: R): Boolean
