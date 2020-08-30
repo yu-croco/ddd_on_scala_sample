@@ -15,7 +15,7 @@ import usecase.helper.UseCaseError
 import usecase.hunter.GetMaterialFromMonsterUseCase
 import io.circe.generic.auto._
 import io.circe.syntax._
-import adapter.controllers.CirceJsonOps.FutureJsonOps
+import adapter.controllers.CirceCirceJsonOps.FutureJsonOps
 import scala.concurrent.{ExecutionContext, Future}
 
 class GetMaterialFromMonsterController @Inject()(cc: ControllerComponents, useCase: GetMaterialFromMonsterUseCase)(

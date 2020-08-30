@@ -2,7 +2,8 @@ package adapter.controllers.helpers
 
 import adapter.helper.AdapterError
 import cats.data.NonEmptyList
-import play.api.http.Status
+
+import play.api.http.{Status, Writeable}
 import play.api.libs.json._
 import play.api.mvc
 import play.api.mvc.Results.BadRequest
@@ -40,6 +41,19 @@ object ErrorResponse {
           Json.obj(key -> message)
       }
   )
+}
+
+trait CirceJsonHelper {
+  import io.circe.Json
+  import io.circe.syntax.EncoderOps
+
+  def successJson(resultStatus: mvc.Results.Status, value: Json)(implicit writeable: Writeable[Json]): Result =
+    resultStatus(
+      Json.obj(
+        "status" -> resultStatus.header.status.asJson,
+        "data"   -> value
+      )
+    ).as(contentType = "application/json")
 }
 
 trait JsonHelper {

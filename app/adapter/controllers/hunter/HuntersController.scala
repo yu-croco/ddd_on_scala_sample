@@ -1,6 +1,6 @@
 package adapter.controllers.hunter
 
-import adapter.controllers.FutureSeqOps
+import adapter.controllers.JsonOps.FutureSeqOps
 import com.google.inject.Inject
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 import query.hunter.HunterFindAllQuery

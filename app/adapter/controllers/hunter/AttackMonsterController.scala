@@ -1,7 +1,7 @@
 package adapter.controllers.hunter
 
 import adapter.FutureEitherStack
-import adapter.controllers.CirceJsonOps.FutureJsonOps
+import adapter.controllers.CirceCirceJsonOps.FutureJsonOps
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.hunter.attack.{AttackMonsterJson, AttackMonsterRequest, ToJson}
 import com.google.inject.Inject
@@ -16,6 +16,7 @@ import usecase.helper.UseCaseError
 import usecase.hunter.AttackMonsterUseCase
 import io.circe.generic.auto._
 import io.circe.syntax._
+import adapter.controllers.CirceCirceJsonOps.FutureJsonOps
 
 import scala.concurrent.{ExecutionContext, Future}
 
