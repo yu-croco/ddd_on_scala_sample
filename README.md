@@ -61,16 +61,25 @@ Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDo
 ...
 ```
 
-## 起動
-- Dockerで全部動かしたい場合
-    - `docker-compose up`
-- PlayFrameworkはローカルで動かしたい場合
-    - `bin/run.sh`
+## セットアップ
 
-## Seed
-- `bin/seed.sh`でサンプルデータを投入できる
+```bash
+$ git clone
+# APIの動作確認に使っているShellScriptではjqを使っているので、動作確認したい場合には入れる
+$ brew install jq
 
-## DBマイグレーション
+# Dockerで全部動かしたい場合
+$ docker-compose up
+
+# PlayFrameworkはローカルで動かしたい場合
+$ bin/run.sh
+
+# Seed実行でサンプルデータを投入できる
+$ bin/seed.sh
+```
+
+## その他
+### DBマイグレーション
 - [evolutions](https://www.playframework.com/documentation/2.8.x/Evolutions) と [slick-codegen](https://scala-slick.org/doc/3.2.0/code-generation.html) を使っている
 - `conf/evolutions/default` 配下にSQLファイルを置いてサーバーを起動することで、DBマイグレーションが実行される
 - マイグレーション結果をコードに反映させるには `sbt codegen/run` を行う
