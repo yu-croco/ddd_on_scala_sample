@@ -25,4 +25,9 @@ package object domain {
     override def errorMessage(value: Long): String = s"$value should not be negative"
   }
 
+  trait EntityIdFactory[T] extends NonEmptyStringVOFactory[T] {
+    val UUID         = java.util.UUID.randomUUID.toString
+    def initialize() = apply(UUID)
+  }
+
 }

@@ -26,7 +26,7 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
     with ToJson
     with Circe {
 
-  def update(monsterId: Long): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def update(monsterId: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
     implicit val scheduler: Scheduler = ExecutorServices.schedulerFromGlobalExecutionContext
     val body                          = request.body.validate[AttackHunterJson]
 

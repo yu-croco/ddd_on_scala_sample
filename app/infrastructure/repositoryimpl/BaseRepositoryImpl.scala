@@ -1,13 +1,13 @@
 package infrastructure.repositoryimpl
 
 import com.google.inject.Inject
-import infrastructure.helper.ops.Ops
+import infrastructure.helper.ops.{Ops, UuidGeneratorOps}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.PostgresProfile
 
 import scala.concurrent.ExecutionContext
 
-trait BaseRepositoryImpl extends HasDatabaseConfigProvider[PostgresProfile] with Ops {
+trait BaseRepositoryImpl extends HasDatabaseConfigProvider[PostgresProfile] with Ops with UuidGeneratorOps {
   @Inject() private var ecc: ExecutionContext = _
   implicit lazy val ec: ExecutionContext      = ecc
 

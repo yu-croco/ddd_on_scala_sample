@@ -26,7 +26,7 @@ class GetMaterialFromMonsterController @Inject()(cc: ControllerComponents, useCa
     with ToJson
     with Circe {
 
-  def create(hunterId: Long): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def create(hunterId: String): Action[JsValue] = Action.async(parse.json) { implicit request =>
     implicit val scheduler: Scheduler = ExecutorServices.schedulerFromGlobalExecutionContext
     val body                          = request.body.validate[GetMaterialFromMonsterJson]
 

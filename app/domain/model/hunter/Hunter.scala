@@ -1,8 +1,8 @@
 package domain.model.hunter
 
 import domain.helper.DomainValidationError
-import domain.model.monster.{Monster, MonsterAttackDamage, MonsterDefensePower, MonsterMaterial, MonsterOffensePower}
-import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
+import domain.model.monster._
+import domain.{EntityIdFactory, NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 
 case class Hunter(
     id: HunterId,
@@ -30,8 +30,8 @@ case class Hunter(
   }
 }
 
-case class HunterId(value: Long) extends AnyVal
-object HunterId                  extends NonNegativeLongVOFactory[HunterId]
+case class HunterId(value: String) extends AnyVal
+object HunterId                    extends EntityIdFactory[HunterId]
 
 case class HunterName(value: String) extends AnyVal
 object HunterName                    extends NonEmptyStringVOFactory[HunterName]

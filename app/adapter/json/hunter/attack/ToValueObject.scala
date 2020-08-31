@@ -6,7 +6,7 @@ import domain.model.hunter.HunterId
 import domain.model.monster.MonsterId
 import play.api.libs.json.{Json, Reads}
 
-case class AttackMonsterJson(monsterId: Long)
+case class AttackMonsterJson(monsterId: String)
 
 object AttackMonsterJson {
   implicit def jsonReads: Reads[AttackMonsterJson] = Json.reads[AttackMonsterJson]
@@ -15,7 +15,7 @@ object AttackMonsterJson {
 case class AttackMonster(hunterId: HunterId, monsterId: MonsterId)
 
 object AttackMonsterRequest {
-  def convertToEntity(json: AttackMonsterJson, hunterId: Long): Validated[AdapterError, AttackMonster] = {
+  def convertToEntity(json: AttackMonsterJson, hunterId: String): Validated[AdapterError, AttackMonster] = {
     val hId       = HunterId.createNel(hunterId)
     val monsterId = MonsterId.createNel(json.monsterId)
 

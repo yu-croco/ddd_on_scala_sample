@@ -1,7 +1,7 @@
 -- !Ups
 CREATE TABLE public.monsters
 (
-    id BIGSERIAL PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     life BIGSERIAL NOT NULL,
     defense_power BIGSERIAL NOT NULL,
@@ -10,15 +10,15 @@ CREATE TABLE public.monsters
 
 CREATE TABLE public.monster_materials
 (
-    id BIGSERIAL PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     rarity BIGSERIAL NOT NULL,
-    monster_id BIGINT NOT NULL REFERENCES monsters(id)
+    monster_id TEXT NOT NULL REFERENCES monsters(id)
 );
 
 CREATE TABLE public.hunters
 (
-    id BIGSERIAL PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     life BIGSERIAL NOT NULL,
     defense_power BIGSERIAL NOT NULL,
@@ -27,9 +27,9 @@ CREATE TABLE public.hunters
 
 CREATE TABLE public.hunters_monster_materials
 (
-    id BIGSERIAL PRIMARY KEY,
-    hunter_id BIGINT NOT NULL REFERENCES hunters(id),
-    monster_materials_id BIGINT NOT NULL REFERENCES monster_materials(id)
+    id TEXT PRIMARY KEY,
+    hunter_id TEXT NOT NULL REFERENCES hunters(id),
+    monster_materials_id TEXT NOT NULL REFERENCES monster_materials(id)
 );
 
 

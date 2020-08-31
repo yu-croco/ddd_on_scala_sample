@@ -4,7 +4,7 @@ import domain.model.monster._
 import io.circe.Encoder
 
 trait ToJson {
-  implicit val monsterIdEncoder: Encoder[MonsterId]                     = Encoder[Long].contramap(_.value)
+  implicit val monsterIdEncoder: Encoder[MonsterId]                     = Encoder[String].contramap(_.value)
   implicit val monsterNameEncoder: Encoder[MonsterName]                 = Encoder[String].contramap(_.value)
   implicit val monsterLifeEncoder: Encoder[MonsterLife]                 = Encoder[Long].contramap(_.value)
   implicit val monsterOffensePowerEncoder: Encoder[MonsterOffensePower] = Encoder[Long].contramap(_.value)

@@ -3,23 +3,18 @@ TRUNCATE hunters_monster_materials, monster_materials, monsters, hunters RESTART
 
 -- INSERT SEED
 INSERT INTO public.monsters VALUES
-    (1, 'らんぽす', 100, 10, 5),
-    (2, 'ふるふる', 1500, 150, 180);
+    ('32de8cb2-76ac-4fc1-a3b4-372e446bf5bf', 'らんぽす', 100, 10, 5),
+    ('33de8cb2-76ac-4fc1-a3b4-372e446bf5bf', 'ふるふる', 1500, 150, 180);
 
 INSERT INTO public.monster_materials VALUES
-    (1, 'ランポスの皮', 1, 1),
-    (2, 'ランポスの爪', 1, 1),
-    (3, 'アルビノ', 2, 2),
-    (4, '電気袋', 2, 2);
+    ('32de8cb2-76ac-4fc1-a3b4-372e446bf0bf', 'ランポスの皮', 1, '32de8cb2-76ac-4fc1-a3b4-372e446bf5bf'),
+    ('32de8cb2-76ac-4fc1-a3b4-372e446bf1bf', 'ランポスの爪', 1, '32de8cb2-76ac-4fc1-a3b4-372e446bf5bf'),
+    ('32de8cb2-76ac-4fc1-a3b4-372e446bf2bf', 'アルビノ', 2, '33de8cb2-76ac-4fc1-a3b4-372e446bf5bf'),
+    ('32de8cb2-76ac-4fc1-a3b4-372e446bf3bf', '電気袋', 2, '33de8cb2-76ac-4fc1-a3b4-372e446bf5bf');
 
 INSERT INTO public.hunters VALUES
-    (1, '新米ハンター', 1000, 100, 100),
-    (2, '中級ハンター', 3500, 480, 390);
+    ('01de8cb2-76ac-4fc1-a3b4-372e446bf0bf', '新米ハンター', 1000, 100, 100),
+    ('02de8cb2-76ac-4fc1-a3b4-372e446bf0bf', '中級ハンター', 3500, 480, 390);
 
 INSERT INTO public.hunters_monster_materials VALUES
-(1, 1, 3);
-
-SELECT setval('monsters_id_seq', (SELECT MAX(id) FROM monsters));
-SELECT setval('monster_materials_id_seq', (SELECT MAX(id) FROM monster_materials));
-SELECT setval('hunters_id_seq', (SELECT MAX(id) FROM hunters));
-SELECT setval('hunters_monster_materials_id_seq', (SELECT MAX(id) FROM hunters_monster_materials));
+('01de8cb2-76ac-4fc1-a30s-372e446bf0bf', '02de8cb2-76ac-4fc1-a3b4-372e446bf0bf', '32de8cb2-76ac-4fc1-a3b4-372e446bf3bf');
