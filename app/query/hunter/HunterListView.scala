@@ -8,7 +8,7 @@ case class HuntedMonsterMaterialView(
     rarity: Long
 )
 case class HunterListView(
-    id: Long,
+    id: String,
     name: String,
     life: Long,
     defencePower: Long,
