@@ -1,6 +1,6 @@
 package adapter.json.hunter.attack
 
-import domain.monster._
+import domain.model.monster._
 import io.circe.Encoder
 
 trait ToJson {

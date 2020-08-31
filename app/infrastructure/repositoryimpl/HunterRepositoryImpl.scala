@@ -1,7 +1,8 @@
 package infrastructure.repositoryimpl
 
-import domain.hunter.{Hunter, HunterId, HunterRepository}
-import domain.monster.MonsterMaterial
+import domain.model.hunter.{Hunter, HunterId}
+import domain.model.monster.MonsterMaterial
+import domain.repository.hunter.HunterRepository
 import dto.Tables._
 
 import scala.concurrent.Future

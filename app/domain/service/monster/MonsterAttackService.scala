@@ -1,7 +1,7 @@
-package domain.service
+package domain.service.monster
 
-import domain.hunter.{Hunter, HunterDefensePower}
-import domain.monster.{Monster, MonsterAttackDamage, MonsterOffensePower}
+import domain.model.hunter.{Hunter, HunterDefensePower}
+import domain.model.monster.{Monster, MonsterAttackDamage, MonsterOffensePower}
 
 object MonsterAttackService {
   def calculateDamage(monster: Monster, hunter: Hunter): MonsterAttackDamage =

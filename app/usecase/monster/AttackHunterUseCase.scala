@@ -1,8 +1,10 @@
 package usecase.monster
 
-import domain.hunter.{Hunter, HunterId, HunterRepository}
-import domain.monster.{MonsterId, MonsterRepository}
-import domain.service.MonsterAttackService
+import domain.model.hunter.{Hunter, HunterId}
+import domain.model.monster.MonsterId
+import domain.repository.hunter.HunterRepository
+import domain.repository.monster.MonsterRepository
+import domain.service.monster.MonsterAttackService
 import javax.inject.Inject
 import org.atnos.eff.Eff
 import org.atnos.eff.create._future

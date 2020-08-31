@@ -1,4 +1,4 @@
-package domain.hunter
+package domain.model.hunter
 
 import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 

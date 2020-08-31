@@ -1,8 +1,8 @@
 import com.google.inject.AbstractModule
 import java.time.Clock
 
-import domain.hunter.HunterRepository
-import domain.monster.MonsterRepository
+import domain.repository.hunter.HunterRepository
+import domain.repository.monster.MonsterRepository
 import infrastructure.queryimpl.{HunterFindAllQueryImpl, MonsterFindAllQueryImpl}
 import infrastructure.repositoryimpl.{HunterRepositoryImpl, MonsterRepositoryImpl}
 import net.codingwell.scalaguice.ScalaModule

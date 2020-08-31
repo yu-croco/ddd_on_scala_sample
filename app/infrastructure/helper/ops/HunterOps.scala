@@ -1,5 +1,5 @@
 package infrastructure.helper.ops
-import domain.hunter._
+import domain.model.hunter._
 import dto.Tables._
 
 trait HunterOps {

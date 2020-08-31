@@ -1,7 +1,7 @@
-package domain.hunter
+package domain.model.hunter
 
 import domain.helper.DomainValidationError
-import domain.monster.{Monster, MonsterAttackDamage, MonsterDefensePower, MonsterMaterial, MonsterOffensePower}
+import domain.model.monster.{Monster, MonsterAttackDamage, MonsterDefensePower, MonsterMaterial, MonsterOffensePower}
 import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 
 case class Hunter(

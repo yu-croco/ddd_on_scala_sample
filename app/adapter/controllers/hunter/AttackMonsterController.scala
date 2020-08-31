@@ -5,7 +5,7 @@ import adapter.controllers.FutureEitherStack
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.hunter.attack.{AttackMonsterJson, AttackMonsterRequest, ToJson}
 import com.google.inject.Inject
-import domain.hunter.HunterId
+import domain.model.hunter.HunterId
 import io.circe.generic.auto._
 import io.circe.syntax._
 import org.atnos.eff.ExecutorServices

@@ -3,8 +3,8 @@ package adapter.json.monster.attack
 import adapter.helper.AdapterError
 import cats.data.Validated
 import cats.implicits._
-import domain.hunter.HunterId
-import domain.monster.MonsterId
+import domain.model.hunter.HunterId
+import domain.model.monster.MonsterId
 import play.api.libs.json.{Json, Reads}
 
 case class AttackHunterJson(hunterId: Long)

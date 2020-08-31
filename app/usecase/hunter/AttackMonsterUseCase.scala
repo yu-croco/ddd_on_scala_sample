@@ -1,11 +1,13 @@
 package usecase.hunter
 
 import com.google.inject.Inject
-import domain.hunter.{HunterId, HunterRepository}
-import domain.monster.{Monster, MonsterId, MonsterRepository}
+import domain.model.hunter.HunterId
+import domain.model.monster.{Monster, MonsterId}
+import domain.repository.hunter.HunterRepository
+import domain.repository.monster.MonsterRepository
+import domain.service.hunter.HunterAttackService
 import org.atnos.eff.Eff
 import org.atnos.eff.future._future
-import domain.service.HunterAttackService
 import usecase.usecase.{_useCaseEither, EitherDomainErrorOps, EitherUCErrorOps, FutureOps, FutureOptionOps}
 
 import scala.concurrent.ExecutionContext

@@ -1,4 +1,4 @@
-package domain.monster
+package domain.model.monster
 
 import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 

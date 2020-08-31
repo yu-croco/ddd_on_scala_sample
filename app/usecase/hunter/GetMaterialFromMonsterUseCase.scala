@@ -1,8 +1,10 @@
 package usecase.hunter
 
 import com.google.inject.Inject
-import domain.hunter.{HunterId, HunterRepository}
-import domain.monster.{MonsterId, MonsterMaterial, MonsterRepository}
+import domain.model.hunter.HunterId
+import domain.model.monster.{MonsterId, MonsterMaterial}
+import domain.repository.hunter.HunterRepository
+import domain.repository.monster.MonsterRepository
 import org.atnos.eff.Eff
 import org.atnos.eff.create._future
 import usecase.usecase.{_useCaseEither, EitherDomainErrorOps, EitherUCErrorOps, FutureOps, FutureOptionOps}

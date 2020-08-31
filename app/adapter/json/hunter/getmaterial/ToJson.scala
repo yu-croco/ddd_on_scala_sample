@@ -1,6 +1,6 @@
 package adapter.json.hunter.getmaterial
 
-import domain.monster.{MonsterMaterialName, MonsterMaterialRarity}
+import domain.model.monster.{MonsterMaterialName, MonsterMaterialRarity}
 import io.circe.Encoder
 trait ToJson {
   implicit val materialNameEncoder: Encoder[MonsterMaterialName]     = Encoder[String].contramap(_.value)

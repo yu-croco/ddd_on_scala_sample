@@ -1,6 +1,7 @@
 package infrastructure.repositoryimpl
 
-import domain.monster.{Monster, MonsterId, MonsterRepository}
+import domain.model.monster.{Monster, MonsterId}
+import domain.repository.monster.MonsterRepository
 import dto.Tables
 import dto.Tables.{MonsterMaterials, Monsters}
 

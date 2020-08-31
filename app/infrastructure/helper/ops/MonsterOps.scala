@@ -1,5 +1,5 @@
 package infrastructure.helper.ops
-import domain.monster._
+import domain.model.monster._
 import dto.Tables.{MonsterMaterialsRow, MonstersRow}
 
 trait MonsterOps {
