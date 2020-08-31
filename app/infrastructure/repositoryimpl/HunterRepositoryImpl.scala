@@ -39,11 +39,13 @@ class HunterRepositoryImpl extends BaseRepositoryImpl with HunterRepository {
     } yield hunter
 
   // ToDo: headの代わりにエラーハンドリングする
-  override def addMonsterMaterial(hunter: Hunter, monsterMaterial: MonsterMaterial): Future[Unit] =
+  override def addMonsterMaterial(hunter: Hunter, monsterMaterial: MonsterMaterial): Future[Unit] = {
+    val id = genUUID
     db.run {
       for {
         monsterMaterialR <- MonsterMaterials.filter(_.name === monsterMaterial.name.value).result.head
-        _                <- HuntersMonsterMaterials += HuntersMonsterMaterialsRow(genUUID, hunter.id.value, monsterMaterialR.id)
+        _                <- HuntersMonsterMaterials += HuntersMonsterMaterialsRow(id, hunter.id.value, monsterMaterialR.id)
       } yield ()
     }
+  }
 }

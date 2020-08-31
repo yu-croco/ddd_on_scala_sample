@@ -16,6 +16,7 @@ import io.circe.generic.auto._
 import io.circe.syntax._
 import adapter.controllers.CirceCirceJsonOps.FutureJsonOps
 import adapter.controllers.FutureEitherStack
+import domain.model.hunter.HunterId
 
 import scala.concurrent.{ExecutionContext, Future}
 

@@ -19,6 +19,7 @@ class GetMaterialFromMonsterUseCase @Inject()(hunterRepository: HunterRepository
       hunter        <- hunterRepository.findById(hunterId).toUCErrorIfNotExists("hunter").toEff
       monster       <- monsterRepository.findById(monsterId).toUCErrorIfNotExists("monster").toEff
       takenMaterial <- hunter.getMonsterMaterial(monster).toUCErrorIfLeft().toEff
-      _             <- hunterRepository.addMonsterMaterial(hunter, takenMaterial).raiseIfFutureFailed("monsterMaterial").toEff
+      aaa = println(hunter.id)
+      _ <- hunterRepository.addMonsterMaterial(hunter, takenMaterial).raiseIfFutureFailed("monsterMaterial").toEff
     } yield takenMaterial
 }
