@@ -5,7 +5,6 @@ import adapter.controllers.FutureEitherStack
 import adapter.controllers.helpers.JsonHelper
 import adapter.json.hunter.attack.{AttackMonsterJson, AttackMonsterRequest, ToJson}
 import com.google.inject.Inject
-import domain.model.hunter.HunterId
 import io.circe.generic.auto._
 import io.circe.syntax._
 import org.atnos.eff.ExecutorServices
@@ -32,12 +31,12 @@ class AttackMonsterController @Inject()(cc: ControllerComponents, useCase: Attac
     val body                          = request.body.validate[AttackMonsterJson]
 
     body.fold(
-      e => Future.successful(toRequestJsonTypeError(e)),
+      e => Future.successful(e.toRequestJsonTypeError),
       value =>
         AttackMonsterRequest
           .convertToEntity(value, hunterId)
           .fold(
-            e => Future.successful(toVOConvertError(e)),
+            e => Future.successful(e.toVOConvertError),
             vo =>
               useCase
                 .program[FutureEitherStack](vo.hunterId, vo.monsterId)

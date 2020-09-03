@@ -31,12 +31,12 @@ class AttackHunterController @Inject()(cc: ControllerComponents, useCase: Attack
     val body                          = request.body.validate[AttackHunterJson]
 
     body.fold(
-      e => Future.successful(toRequestJsonTypeError(e)),
+      e => Future.successful(e.toRequestJsonTypeError),
       value =>
         AttackHunterRequest
           .convertToEntity(value, monsterId)
           .fold(
-            e => Future.successful(toVOConvertError(e)),
+            e => Future.successful(e.toVOConvertError),
             vo =>
               useCase
                 .program[FutureEitherStack](vo.hunterId, vo.monsterId)

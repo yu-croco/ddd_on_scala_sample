@@ -7,7 +7,6 @@ import cats.data.NonEmptyList
 import play.api.http.{Status, Writeable}
 import play.api.libs.json._
 import play.api.mvc
-import play.api.mvc.Results.BadRequest
 import play.api.mvc.{Result, Results}
 import usecase.helper.UseCaseError
 
@@ -40,28 +39,38 @@ object ErrorResponse {
 }
 
 trait JsonHelper {
-  def successJson(resultStatus: mvc.Results.Status, value: JsValue): Result =
-    resultStatus(value).as(contentType = "application/json")
+  implicit class SuccessJsonResponseOps(value: JsValue) {
+    def toSuccessJson(resultStatus: mvc.Results.Status): Result =
+      resultStatus(value).as(contentType = "application/json")
+  }
 
-  def toRequestJsonTypeError(error: RequestJsonTypeError): Result =
-    Results
-      .BadRequest(Json.toJson(ErrorDetail(error)))
-      .as(contentType = "application/json")
+  implicit class VOConvertErrorResponseOps(e: AdapterError) {
+    def toVOConvertError: Result =
+      Results
+        .Status(Status.BAD_REQUEST)(Json.toJson(ErrorResponse(e.detail)))
+        .as(contentType = "application/json")
+  }
 
-  def toVOConvertError(e: AdapterError): Result =
-    Results
-      .Status(Status.BAD_REQUEST)(Json.toJson(ErrorResponse(e.detail)))
-      .as(contentType = "application/json")
+  implicit class UseCaseErrorResponseOps(e: UseCaseError) {
+    def toFailedProcessError: Result =
+      Results
+        .Status(Status.BAD_REQUEST)(Json.toJson(ErrorResponse(e.error)))
+        .as(contentType = "application/json")
+  }
 
-  def toFailedProcessError(e: UseCaseError): Result =
-    Results
-      .Status(Status.BAD_REQUEST)(Json.toJson(ErrorResponse(e.error)))
-      .as(contentType = "application/json")
+  implicit class RequestJsonTypeErrorOps(error: RequestJsonTypeError) {
+    def toRequestJsonTypeError: Result =
+      Results
+        .BadRequest(Json.toJson(ErrorDetail(error)))
+        .as(contentType = "application/json")
+  }
 }
 
 trait CirceJsonHelper {
   import io.circe.Json
 
-  def successJson(resultStatus: mvc.Results.Status, value: Json)(implicit writeable: Writeable[Json]): Result =
-    resultStatus(value).as(contentType = "application/json")
+  implicit class SuccessCirceJsonOps(value: Json) {
+    def toSuccessJson(resultStatus: mvc.Results.Status)(implicit writeable: Writeable[Json]): Result =
+      resultStatus(value).as(contentType = "application/json")
+  }
 }

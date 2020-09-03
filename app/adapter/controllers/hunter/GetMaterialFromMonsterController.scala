@@ -32,12 +32,12 @@ class GetMaterialFromMonsterController @Inject()(cc: ControllerComponents, useCa
     val body                          = request.body.validate[GetMaterialFromMonsterJson]
 
     body.fold(
-      e => Future.successful(toRequestJsonTypeError(e)),
+      e => Future.successful(e.toRequestJsonTypeError),
       value =>
         AttackMonsterRequest
           .convertToEntity(value, hunterId)
           .fold(
-            e => Future.successful(toVOConvertError(e)),
+            e => Future.successful(e.toVOConvertError),
             vo =>
               useCase
                 .program[FutureEitherStack](vo.hunterId, vo.monsterId)
