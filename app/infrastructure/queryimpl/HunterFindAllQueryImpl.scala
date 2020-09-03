@@ -1,12 +1,18 @@
 package infrastructure.queryimpl
 
+import com.google.inject.Inject
 import dto.Tables
 import dto.Tables.{Hunters, HuntersMonsterMaterials, MonsterMaterials}
+import play.api.db.slick.DatabaseConfigProvider
 import query.hunter.{HunterFindAllQuery, HunterListView}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class HunterFindAllQueryImpl extends BaseQueryImpl with HunterFindAllQuery {
+class HunterFindAllQueryImpl @Inject()(private var ecc: ExecutionContext, private var dbConf: DatabaseConfigProvider)(
+    implicit val dbConfigProvider: DatabaseConfigProvider,
+    val ec: ExecutionContext)
+    extends BaseQueryImpl
+    with HunterFindAllQuery {
   import profile.api._
 
   override def findAll(): Future[Seq[HunterListView]] =

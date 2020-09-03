@@ -1,13 +1,20 @@
 package infrastructure.repositoryimpl
 
+import com.google.inject.Inject
 import domain.model.monster.{Monster, MonsterId}
 import domain.repository.monster.MonsterRepository
 import dto.Tables
 import dto.Tables.{MonsterMaterials, Monsters}
+import infrastructure.queryimpl.BaseQueryImpl
+import play.api.db.slick.DatabaseConfigProvider
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class MonsterRepositoryImpl extends BaseRepositoryImpl with MonsterRepository {
+class MonsterRepositoryImpl @Inject()(private var ecc: ExecutionContext, private var dbConf: DatabaseConfigProvider)(
+    implicit val dbConfigProvider: DatabaseConfigProvider,
+    val ec: ExecutionContext)
+    extends BaseQueryImpl
+    with MonsterRepository {
   import profile.api._
 
   private type MonsterResources = Seq[(Tables.MonstersRow, Tables.MonsterMaterialsRow)]

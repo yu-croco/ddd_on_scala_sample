@@ -1,13 +1,19 @@
 package infrastructure.repositoryimpl
 
+import com.google.inject.Inject
 import domain.model.hunter.{Hunter, HunterId}
 import domain.model.monster.MonsterMaterial
 import domain.repository.hunter.HunterRepository
 import dto.Tables._
+import play.api.db.slick.DatabaseConfigProvider
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class HunterRepositoryImpl extends BaseRepositoryImpl with HunterRepository {
+class HunterRepositoryImpl @Inject()(private var ecc: ExecutionContext, private var dbConf: DatabaseConfigProvider)(
+    implicit val dbConfigProvider: DatabaseConfigProvider,
+    val ec: ExecutionContext)
+    extends BaseRepositoryImpl
+    with HunterRepository {
   import profile.api._
 
   override def findById(id: HunterId): Future[Option[Hunter]] =
