@@ -1,5 +1,6 @@
 package adapter.controllers.helpers
 
+import adapter.controllers.RequestJsonTypeError
 import adapter.controllers.helpers.RequestJsonTypeError.ErrorDetail
 import adapter.helper.AdapterError
 import cats.data.NonEmptyList
@@ -11,14 +12,10 @@ import play.api.mvc.{Result, Results}
 import usecase.helper.UseCaseError
 
 object RequestJsonTypeError {
-  case class ErrorDetail(
-      status: Int,
-      error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]
-  )
+  case class ErrorDetail(error: RequestJsonTypeError)
 
   implicit val requestJsonTypeErrorJsonWrites: Writes[ErrorDetail] = (request: ErrorDetail) =>
     Json.obj(
-      "status" -> request.status,
       "errors" -> request.error.map {
         case (key, messages) =>
           Json.obj(
@@ -29,14 +26,12 @@ object RequestJsonTypeError {
 }
 
 case class ErrorResponse(
-    status: Int,
     message: NonEmptyList[(String, String)]
 )
 
 object ErrorResponse {
   implicit val errorResponseJsonWrites: Writes[ErrorResponse] = (res: ErrorResponse) =>
     Json.obj(
-      "status" -> res.status,
       "errors" -> res.message.toList.map {
         case (key, message) =>
           Json.obj(key -> message)
@@ -46,56 +41,27 @@ object ErrorResponse {
 
 trait JsonHelper {
   def successJson(resultStatus: mvc.Results.Status, value: JsValue): Result =
-    resultStatus(
-      Json.toJson(
-        Json.obj(
-          "status" -> resultStatus.header.status,
-          "data"   -> value
-        )
-      )
-    ).as(contentType = "application/json")
+    resultStatus(value).as(contentType = "application/json")
 
-  def toRequestJsonTypeError(error: collection.Seq[(JsPath, collection.Seq[JsonValidationError])]): Result =
+  def toRequestJsonTypeError(error: RequestJsonTypeError): Result =
     Results
-      .BadRequest(
-        Json.toJson(ErrorDetail(BadRequest.header.status, error))
-      )
+      .BadRequest(Json.toJson(ErrorDetail(error)))
       .as(contentType = "application/json")
 
   def toVOConvertError(e: AdapterError): Result =
     Results
-      .Status(Status.BAD_REQUEST)(
-        Json.toJson(
-          ErrorResponse(
-            Status.BAD_REQUEST,
-            e.detail
-          )
-        )
-      )
+      .Status(Status.BAD_REQUEST)(Json.toJson(ErrorResponse(e.detail)))
       .as(contentType = "application/json")
 
   def toFailedProcessError(e: UseCaseError): Result =
     Results
-      .Status(Status.BAD_REQUEST)(
-        Json.toJson(
-          ErrorResponse(
-            Status.BAD_REQUEST,
-            e.error
-          )
-        )
-      )
+      .Status(Status.BAD_REQUEST)(Json.toJson(ErrorResponse(e.error)))
       .as(contentType = "application/json")
 }
 
 trait CirceJsonHelper {
   import io.circe.Json
-  import io.circe.syntax.EncoderOps
 
   def successJson(resultStatus: mvc.Results.Status, value: Json)(implicit writeable: Writeable[Json]): Result =
-    resultStatus(
-      Json.obj(
-        "status" -> resultStatus.header.status.asJson,
-        "data"   -> value
-      )
-    ).as(contentType = "application/json")
+    resultStatus(value).as(contentType = "application/json")
 }
