@@ -1,5 +1,5 @@
 import cats.data.{Validated, ValidatedNel}
-import domain.helper.{DomainError, DomainValidationError}
+import domain.helper.DomainError
 
 package object domain {
   trait BaseFactory[R, V] {
@@ -10,7 +10,7 @@ package object domain {
     def errorMessage(value: R): String
 
     def create(value: R): Validated[DomainError, V] =
-      Validated.cond(isValid(value), apply(value), DomainValidationError.create(className, errorMessage(value)))
+      Validated.cond(isValid(value), apply(value), DomainError.create(className, errorMessage(value)))
 
     def createNel(value: R): ValidatedNel[DomainError, V] = create(value).toValidatedNel
   }

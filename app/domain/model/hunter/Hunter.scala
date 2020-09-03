@@ -1,6 +1,6 @@
 package domain.model.hunter
 
-import domain.helper.DomainValidationError
+import domain.helper.DomainError
 import domain.model.monster._
 import domain.{EntityIdFactory, NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 
@@ -13,14 +13,14 @@ case class Hunter(
     huntedMaterials: Seq[HuntedMonsterMaterial],
     attackDamage: Option[HunterAttackDamage] = None
 ) {
-  def attack(monster: Monster, givenDamage: HunterAttackDamage): Either[DomainValidationError, Monster] =
+  def attack(monster: Monster, givenDamage: HunterAttackDamage): Either[DomainError, Monster] =
     monster.attackedBy(givenDamage)
 
-  def attackedBy(givenDamage: MonsterAttackDamage): Either[DomainValidationError, Hunter] =
-    if (this.life.isZero()) Left(DomainValidationError.create("hunter", "既にこのハンターは倒しています"))
+  def attackedBy(givenDamage: MonsterAttackDamage): Either[DomainError, Hunter] =
+    if (this.life.isZero()) Left(DomainError.create("hunter", "既にこのハンターは倒しています"))
     else Right(this.copy(life = calculateRestOfLife(givenDamage)))
 
-  def getMonsterMaterial(monster: Monster): Either[DomainValidationError, MonsterMaterial] = monster.takenMaterial()
+  def getMonsterMaterial(monster: Monster): Either[DomainError, MonsterMaterial] = monster.takenMaterial()
 
   private def calculateRestOfLife(givenDamage: MonsterAttackDamage) = {
     val diff = this.life - givenDamage

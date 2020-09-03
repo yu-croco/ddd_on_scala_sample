@@ -1,6 +1,6 @@
 package usecase
 
-import domain.helper.DomainValidationError
+import domain.helper.DomainError
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
@@ -31,7 +31,7 @@ package object usecase {
     def toEff[R: _future]: Eff[R, T] = fromFuture(futureValue)
   }
 
-  implicit class EitherDomainErrorOps[T](eitherValue: Either[DomainValidationError, T]) {
+  implicit class EitherDomainErrorOps[T](eitherValue: Either[DomainError, T]) {
     def toUCErrorIfLeft(): Either[UseCaseError, T] =
       eitherValue.left.map(err => UseCaseError(err.detail))
   }
