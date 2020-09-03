@@ -4,7 +4,7 @@ import adapter.controllers.JsonOps.UseCaseErrorResponseOps
 import adapter.controllers.helpers.{CirceJsonHelper, JsonHelper}
 import org.atnos.eff.{Fx, TimedFuture}
 import play.api.http.Writeable
-import play.api.libs.json.{JsPath, JsValue, Json, JsonValidationError, Writes}
+import play.api.libs.json.{JsPath, Json, JsonValidationError, Writes}
 import play.api.mvc.Result
 import play.api.mvc.Results.{Created, Ok}
 import usecase.helper.UseCaseError
