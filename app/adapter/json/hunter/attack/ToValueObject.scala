@@ -1,7 +1,8 @@
 package adapter.json.hunter.attack
 import adapter.helper.AdapterError
-import cats.data.Validated
+import cats.data.{Validated, ValidatedNel}
 import cats.implicits._
+import domain.helper.DomainError
 import domain.model.hunter.HunterId
 import domain.model.monster.MonsterId
 import play.api.libs.json.{Json, Reads}

@@ -1,6 +1,6 @@
 package domain.model.monster
 
-import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
+import domain.{NonEmptyStringVODomainSpecificationFactory, NonNegativeLongVODomainSpecificationFactory}
 
 case class MonsterMaterial(
     name: MonsterMaterialName,
@@ -8,7 +8,7 @@ case class MonsterMaterial(
 )
 
 case class MonsterMaterialName(value: String) extends AnyVal
-object MonsterMaterialName                    extends NonEmptyStringVOFactory[MonsterMaterialName]
+object MonsterMaterialName                    extends NonEmptyStringVODomainSpecificationFactory[MonsterMaterialName]
 
 case class MonsterMaterialRarity(value: Long) extends AnyVal
-object MonsterMaterialRarity                  extends NonNegativeLongVOFactory[MonsterMaterialRarity]
+object MonsterMaterialRarity                  extends NonNegativeLongVODomainSpecificationFactory[MonsterMaterialRarity]

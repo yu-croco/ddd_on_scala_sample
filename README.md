@@ -91,3 +91,4 @@ $ bin/seed.sh
 - [混乱しがちなサービスという概念について](https://blog.j5ik2o.me/entry/2016/03/07/034646)
 - [scalazやcatsを使ってFunctional DDDを試してみる](https://qiita.com/uryyyyyyy/items/4a846be75f1554727f71)
 - [ScalaのEffを使ってDDDのUseCase層をいい感じに書いてみる](https://qiita.com/yu-croco/items/859328beda388f4f4393)
+- [Scalaを例に「仕様」パターンを実装する](https://yoskhdia.hatenablog.com/entry/2018/12/06/085621#f-61b9a946)
