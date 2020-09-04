@@ -2,7 +2,7 @@ package domain.model.monster
 
 import domain.helper.DomainError
 import domain.model.hunter.{Hunter, HunterAttackDamage, HunterDefensePower, HunterOffensePower}
-import domain.{EntityIdFactory, NonEmptyStringVODomainSpecificationFactory, NonNegativeLongVODomainSpecificationFactory}
+import domain.{EntityIdFactory, NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 
 case class Monster(
     id: MonsterId,
@@ -36,7 +36,7 @@ case class MonsterId(value: String) extends AnyVal
 object MonsterId                    extends EntityIdFactory[MonsterId]
 
 case class MonsterName(value: String) extends AnyVal
-object MonsterName                    extends NonEmptyStringVODomainSpecificationFactory[MonsterName]
+object MonsterName                    extends NonEmptyStringVOFactory[MonsterName]
 
 case class MonsterLife(value: Long) extends AnyVal {
   def isZero                             = value == 0
@@ -44,18 +44,18 @@ case class MonsterLife(value: Long) extends AnyVal {
   def >=(v: Long): Boolean               = this.value >= v
   def toZero()                           = MonsterLife(0)
 }
-object MonsterLife extends NonNegativeLongVODomainSpecificationFactory[MonsterLife]
+object MonsterLife extends NonNegativeLongVOFactory[MonsterLife]
 
 case class MonsterDefensePower(value: Long) extends AnyVal {
   def >=(offense: HunterOffensePower): Boolean = this.value >= offense.value
 }
-object MonsterDefensePower extends NonNegativeLongVODomainSpecificationFactory[MonsterDefensePower]
+object MonsterDefensePower extends NonNegativeLongVOFactory[MonsterDefensePower]
 
 case class MonsterOffensePower(value: Long) extends AnyVal {
   def -(defence: HunterDefensePower) = MonsterOffensePower(this.value - defence.value)
   def +(other: MonsterOffensePower)  = MonsterOffensePower(this.value + other.value)
 }
-object MonsterOffensePower extends NonNegativeLongVODomainSpecificationFactory[MonsterOffensePower]
+object MonsterOffensePower extends NonNegativeLongVOFactory[MonsterOffensePower]
 
 case class MonsterAttackDamage(value: Long) extends AnyVal
-object MonsterAttackDamage                  extends NonNegativeLongVODomainSpecificationFactory[MonsterAttackDamage]
+object MonsterAttackDamage                  extends NonNegativeLongVOFactory[MonsterAttackDamage]

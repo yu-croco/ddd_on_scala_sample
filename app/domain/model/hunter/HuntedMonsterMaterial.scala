@@ -1,6 +1,6 @@
 package domain.model.hunter
 
-import domain.{NonEmptyStringVODomainSpecificationFactory, NonNegativeLongVODomainSpecificationFactory}
+import domain.{NonEmptyStringVOFactory, NonNegativeLongVOFactory}
 
 case class HuntedMonsterMaterial(
     name: HuntedMonsterMaterialName,
@@ -8,7 +8,7 @@ case class HuntedMonsterMaterial(
 )
 
 case class HuntedMonsterMaterialName(value: String) extends AnyVal
-object HuntedMonsterMaterialName                    extends NonEmptyStringVODomainSpecificationFactory[HuntedMonsterMaterialName]
+object HuntedMonsterMaterialName                    extends NonEmptyStringVOFactory[HuntedMonsterMaterialName]
 
 case class HuntedMonsterMaterialRarity(value: Long) extends AnyVal
-object HuntedMonsterMaterialRarity                  extends NonNegativeLongVODomainSpecificationFactory[HuntedMonsterMaterialRarity]
+object HuntedMonsterMaterialRarity                  extends NonNegativeLongVOFactory[HuntedMonsterMaterialRarity]

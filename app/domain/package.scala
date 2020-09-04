@@ -2,7 +2,7 @@ import cats.data.{Validated, ValidatedNel}
 import domain.helper.DomainError
 
 package object domain {
-  type ValidationResult[T] = ValidatedNel[DomainError, T]
+  type ValidationResult[U] = ValidatedNel[DomainError, U]
 
   trait Specification[T, U] {
     def className = this.getClass.getSimpleName
@@ -12,12 +12,12 @@ package object domain {
     def create(t: T): ValidationResult[U] = Validated.condNel(test(t), apply(t), error)
   }
 
-  trait NonEmptyStringVODomainSpecificationFactory[T] extends Specification[String, T] {
+  trait NonEmptyStringVOFactory[T] extends Specification[String, T] {
     def test(t: String): Boolean = !t.isEmpty
     def error: DomainError       = DomainError.create(className, "空欄です")
   }
 
-  trait NonNegativeLongVODomainSpecificationFactory[T] extends Specification[Long, T] {
+  trait NonNegativeLongVOFactory[T] extends Specification[Long, T] {
     def test(t: Long): Boolean = t >= 0
     def error: DomainError     = DomainError.create(className, "マイナス値です")
   }
