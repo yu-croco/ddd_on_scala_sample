@@ -1,4 +1,4 @@
-package domain.helper
+package domain.helpers
 
 import cats.data.NonEmptyList
 

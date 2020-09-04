@@ -1,6 +1,6 @@
 package domain.model.hunter
 
-import domain.helper.DomainError
+import domain.helpers.DomainError
 import domain.model.monster._
 import domain.{EntityIdFactory, NonEmptyStringVOFactory, NonNegativeLongVOFactory, Specification}
 

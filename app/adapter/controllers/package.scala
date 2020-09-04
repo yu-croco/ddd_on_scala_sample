@@ -7,7 +7,7 @@ import play.api.http.Writeable
 import play.api.libs.json.{JsPath, Json, JsonValidationError, Writes}
 import play.api.mvc.Result
 import play.api.mvc.Results.{Created, Ok}
-import usecase.helper.UseCaseError
+import usecase.helpers.UseCaseError
 import usecase.usecase.UseCaseEither
 
 import scala.concurrent.{ExecutionContext, Future}

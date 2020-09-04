@@ -14,7 +14,7 @@ import org.atnos.eff.syntax.future._
 import play.api.libs.circe._
 import play.api.libs.json.JsValue
 import play.api.mvc.{AbstractController, Action, ControllerComponents}
-import usecase.helper.UseCaseError
+import usecase.helpers.UseCaseError
 import usecase.monster.AttackHunterUseCase
 
 import scala.concurrent.{ExecutionContext, Future}

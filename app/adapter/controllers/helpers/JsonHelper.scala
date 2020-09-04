@@ -8,7 +8,7 @@ import play.api.http.{Status, Writeable}
 import play.api.libs.json._
 import play.api.mvc
 import play.api.mvc.{Result, Results}
-import usecase.helper.UseCaseError
+import usecase.helpers.UseCaseError
 
 object RequestJsonTypeError {
   case class ErrorDetail(error: RequestJsonTypeError)

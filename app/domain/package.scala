@@ -1,5 +1,5 @@
 import cats.data.{Validated, ValidatedNel}
-import domain.helper.DomainError
+import domain.helpers.DomainError
 
 package object domain {
   type ValidationResult[U] = ValidatedNel[DomainError, U]

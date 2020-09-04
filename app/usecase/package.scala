@@ -1,10 +1,10 @@
 package usecase
 
-import domain.helper.DomainError
+import domain.helpers.DomainError
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
-import helper.UseCaseError
+import helpers.UseCaseError
 import org.atnos.eff.future.{_future, fromFuture}
 import org.atnos.eff.{|=, either, Eff}
 
