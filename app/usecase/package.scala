@@ -1,6 +1,9 @@
 package usecase
 
+import cats.data.NonEmptyList
+import domain.ValidationResult
 import domain.helpers.DomainError
+import domain.model.hunter.Hunter
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
