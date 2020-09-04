@@ -24,10 +24,7 @@ object RequestJsonTypeError {
   )
 }
 
-case class ErrorResponse(
-    message: NonEmptyList[(String, String)]
-)
-
+case class ErrorResponse(message: NonEmptyList[(String, String)])
 object ErrorResponse {
   implicit val errorResponseJsonWrites: Writes[ErrorResponse] = (res: ErrorResponse) =>
     Json.obj(
