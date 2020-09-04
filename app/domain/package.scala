@@ -1,4 +1,3 @@
-import cats.data.Validated.{Invalid, Valid}
 import cats.data.{Validated, ValidatedNel}
 import domain.helpers.DomainError
 
