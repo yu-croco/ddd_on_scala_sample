@@ -1,4 +1,5 @@
-package infrastructure.helper.ops
+package infrastructure.ops
+
 import domain.model.monster._
 import dto.Tables.{MonsterMaterialsRow, MonstersRow}
 

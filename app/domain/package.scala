@@ -1,6 +1,4 @@
-import cats.data.Validated.{Invalid, Valid}
 import cats.data.{Validated, ValidatedNel}
-import domain.NonEmptyStringVODomainSpecificationFactory
 import domain.helper.DomainError
 
 package object domain {

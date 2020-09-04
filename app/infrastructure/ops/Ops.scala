@@ -1,3 +1,3 @@
-package infrastructure.helper.ops
+package infrastructure.ops
 
 trait Ops extends HunterOps with MonsterOps
