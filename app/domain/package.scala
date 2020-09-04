@@ -1,4 +1,6 @@
+import cats.data.Validated.{Invalid, Valid}
 import cats.data.{Validated, ValidatedNel}
+import domain.NonEmptyStringVODomainSpecificationFactory
 import domain.helper.DomainError
 
 package object domain {
@@ -25,9 +27,17 @@ package object domain {
     override def errorMessage(value: Long): String = s"$value should not be negative"
   }
 
-  trait EntityIdDomainSpecificationFactory[T] extends NonEmptyStringVODomainSpecificationFactory[T] {
-    val UUID         = java.util.UUID.randomUUID.toString
-    def initialize() = apply(UUID)
+  type ValidationResult[T] = ValidatedNel[DomainError, T]
+
+  trait Specification[T, U] {
+    def className = this.getClass.getSimpleName
+    def test(t: T): Boolean
+    def error: DomainError
+    def apply(t: T): U
+    def create(t: T): ValidationResult[U] = Validated.condNel(test(t), apply(t), error)
   }
 
+  trait EntityIdDomainSpecificationFactory[U] extends Specification[String, U] {
+    val UUID = java.util.UUID.randomUUID.toString
+  }
 }

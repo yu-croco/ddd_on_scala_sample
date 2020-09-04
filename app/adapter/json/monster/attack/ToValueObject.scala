@@ -17,8 +17,8 @@ case class AttackHunter(hunterId: HunterId, monsterId: MonsterId)
 
 object AttackHunterRequest {
   def convertToEntity(json: AttackHunterJson, monsterId: String): Validated[AdapterError, AttackHunter] = {
-    val hunterId = HunterId.createNel(json.hunterId)
-    val mId      = MonsterId.createNel(monsterId)
+    val hunterId = HunterId.create(json.hunterId)
+    val mId      = MonsterId.create(monsterId)
 
     (hunterId, mId)
       .mapN(AttackHunter.apply)

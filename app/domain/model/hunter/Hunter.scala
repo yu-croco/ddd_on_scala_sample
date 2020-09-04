@@ -5,7 +5,8 @@ import domain.model.monster._
 import domain.{
   EntityIdDomainSpecificationFactory,
   NonEmptyStringVODomainSpecificationFactory,
-  NonNegativeLongVODomainSpecificationFactory
+  NonNegativeLongVODomainSpecificationFactory,
+  Specification
 }
 
 case class Hunter(
@@ -35,7 +36,12 @@ case class Hunter(
 }
 
 case class HunterId(value: String) extends AnyVal
-object HunterId                    extends EntityIdDomainSpecificationFactory[HunterId]
+object HunterId extends EntityIdDomainSpecificationFactory[HunterId] {
+  override def error: DomainError = DomainError.create("monsterId", "IDの形式に誤りがあります")
+
+  private val reg                       = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}".r
+  override def test(t: String): Boolean = reg.findFirstMatchIn(t).isDefined
+}
 
 case class HunterName(value: String) extends AnyVal
 object HunterName                    extends NonEmptyStringVODomainSpecificationFactory[HunterName]
@@ -46,7 +52,11 @@ case class HunterLife(value: Long) extends AnyVal {
   def >=(v: Long): Boolean           = this.value >= v
   def toZero(): HunterLife           = HunterLife(0)
 }
-object HunterLife extends NonNegativeLongVODomainSpecificationFactory[HunterLife]
+object HunterLife extends Specification[Long, HunterLife] {
+  override def error: DomainError = DomainError.create("hunterLife", "Noneやめて！")
+
+  override def test(t: Long): Boolean = t >= 0
+}
 
 case class HunterDefensePower(value: Long) extends AnyVal {
   def >=(offense: MonsterOffensePower): Boolean = this.value >= offense.value

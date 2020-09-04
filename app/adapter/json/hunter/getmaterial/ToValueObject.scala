@@ -18,8 +18,8 @@ case class GetMaterialFromMonster(hunterId: HunterId, monsterId: MonsterId)
 object AttackMonsterRequest {
   def convertToEntity(json: GetMaterialFromMonsterJson,
                       hunterId: String): Validated[AdapterError, GetMaterialFromMonster] = {
-    val hId       = HunterId.createNel(hunterId)
-    val monsterId = MonsterId.createNel(json.monsterId)
+    val hId       = HunterId.create(hunterId)
+    val monsterId = MonsterId.create(json.monsterId)
 
     (hId, monsterId)
       .mapN(GetMaterialFromMonster.apply)
