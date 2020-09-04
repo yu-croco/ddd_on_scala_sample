@@ -2,11 +2,7 @@ package domain.model.monster
 
 import domain.helper.DomainError
 import domain.model.hunter.{Hunter, HunterAttackDamage, HunterDefensePower, HunterOffensePower}
-import domain.{
-  EntityIdDomainSpecificationFactory,
-  NonEmptyStringVODomainSpecificationFactory,
-  NonNegativeLongVODomainSpecificationFactory
-}
+import domain.{EntityIdFactory, NonEmptyStringVODomainSpecificationFactory, NonNegativeLongVODomainSpecificationFactory}
 
 case class Monster(
     id: MonsterId,
@@ -37,11 +33,8 @@ case class Monster(
 }
 
 case class MonsterId(value: String) extends AnyVal
-object MonsterId extends EntityIdDomainSpecificationFactory[MonsterId] {
+object MonsterId extends EntityIdFactory[MonsterId] {
   override def error: DomainError = DomainError.create("monsterId", "IDの形式に誤りがあります")
-
-  private val reg                       = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}".r
-  override def test(t: String): Boolean = reg.findFirstMatchIn(t).isDefined
 }
 
 case class MonsterName(value: String) extends AnyVal

@@ -35,7 +35,9 @@ package object domain {
     def create(t: T): ValidationResult[U] = Validated.condNel(test(t), apply(t), error)
   }
 
-  trait EntityIdDomainSpecificationFactory[U] extends Specification[String, U] {
-    val UUID = java.util.UUID.randomUUID.toString
+  trait EntityIdFactory[U] extends Specification[String, U] {
+    val UUID                              = java.util.UUID.randomUUID.toString
+    private val reg                       = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}".r
+    override def test(t: String): Boolean = reg.findFirstMatchIn(t).isDefined
   }
 }
