@@ -73,9 +73,11 @@ $ docker-compose up
 
 # PlayFrameworkはローカルで動かしたい場合
 $ bin/run.sh
+ -> http://localhost:9011/
 
 # Seed実行でサンプルデータを投入できる
 $ bin/seed.sh
+ -> http://localhost:9011/
 ```
 
 ## その他
