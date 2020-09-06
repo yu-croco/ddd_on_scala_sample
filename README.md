@@ -68,23 +68,26 @@ $ git clone
 # APIの動作確認に使っているShellScriptではjqを使っているので、動作確認したい場合には入れる
 $ brew install jq
 
-# Dockerで全部動かしたい場合
+# 起動
 $ docker-compose up
+// -> http://localhost:9011/ で起動する
 
-# PlayFrameworkはローカルで動かしたい場合
-$ bin/run.sh
- -> http://localhost:9011/
-
-# Seed実行でサンプルデータを投入できる
+# Seed実行でサンプルデータを投入できる（Seed実行の上で `bin` 配下のスクリプトを流すと各ユースケースの結果が返される）
 $ bin/seed.sh
  -> http://localhost:9011/
 ```
 
 ## その他
+### UseCase層のモナドトランスファー
+- [atnos-org/eff](https://github.com/atnos-org/eff) というライブラリを使用してUseCase層でのモナドトランスファーを実現している
+  - Qiitaの[ScalaのEffを使ってDDDのUseCase層をいい感じに書いてみる](https://qiita.com/yu-croco/items/859328beda388f4f4393) に詳細を記載しているので、興味がある方はどうぞ
+
+### Adapter層でのJson変換
+- [circe/circe](https://github.com/circe/circe) と、 [jilen/play-circe](https://github.com/jilen/play-circe) というライブラリを使用して、Jsonへの変換処理を行っている
+
 ### DBマイグレーション
 - [evolutions](https://www.playframework.com/documentation/2.8.x/Evolutions) と [slick-codegen](https://scala-slick.org/doc/3.2.0/code-generation.html) を使っている
-- `conf/evolutions/default` 配下にSQLファイルを置いてサーバーを起動することで、DBマイグレーションが実行される
-- マイグレーション結果をコードに反映させるには `sbt codegen/run` を行う
+  - Qiitaの[PlayFramework(on Scala)にslick(on PostgreSQL)/slick-codegenを入れる](https://qiita.com/yu-croco/items/47dff9d653803fce883a) に詳細を記載しているので、興味がある方はどうぞ
 
 ## 参考
 - [ddd-on-scala(github)](https://github.com/crossroad0201/ddd-on-scala)
