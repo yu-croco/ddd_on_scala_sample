@@ -11,9 +11,7 @@ object Tables extends {
 trait Tables extends MonsterMaterialsTable with PlayEvolutionsTable with PlayEvolutionsLockTable with HuntersMonsterMaterialsTable with MonstersTable with HuntersTable {
   val profile: slick.jdbc.JdbcProfile
   import profile.api._
-  import slick.model.ForeignKeyAction
   // NOTE: GetResult mappers for plain SQL are only generated for tables where Slick knows how to map the types of all columns.
-  import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
   lazy val schema: profile.SchemaDescription = Array(Hunters.schema, HuntersMonsterMaterials.schema, MonsterMaterials.schema, Monsters.schema, PlayEvolutions.schema, PlayEvolutionsLock.schema).reduceLeft(_ ++ _)
