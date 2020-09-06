@@ -22,6 +22,6 @@ object AttackHunterRequest {
 
     (hunterId, mId)
       .mapN(AttackHunter.apply)
-      .leftMap(e => AdapterError(e.flatMap(_.detail)))
+      .leftMap(e => AdapterError.create(e.flatMap(_.detail)))
   }
 }

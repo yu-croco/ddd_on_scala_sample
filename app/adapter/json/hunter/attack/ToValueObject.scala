@@ -21,6 +21,6 @@ object AttackMonsterRequest {
 
     (hId, monsterId)
       .mapN(AttackMonster.apply)
-      .leftMap(e => AdapterError(e.flatMap(_.detail)))
+      .leftMap(e => AdapterError.create(e.flatMap(_.detail)))
   }
 }

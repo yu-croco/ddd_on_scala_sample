@@ -1,9 +1,6 @@
 package usecase
 
-import cats.data.NonEmptyList
-import domain.ValidationResult
 import domain.helpers.DomainError
-import domain.model.hunter.Hunter
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
@@ -19,7 +16,7 @@ package object usecase {
     def toUCErrorIfNotExists(key: String): Future[T] =
       maybeFutureValue.transformWith {
         case Success(Some(value)) => Future.successful(value)
-        case Success(None)        => Future.failed(UseCaseError(key, "見つかりません"))
+        case Success(None)        => Future.failed(UseCaseError.create(key, "見つかりません"))
         case Failure(exception)   => Future.failed(exception)
       }
   }
@@ -28,7 +25,7 @@ package object usecase {
     def raiseIfFutureFailed(key: String): Future[T] =
       futureValue.transformWith {
         case Success(value)     => Future.successful(value)
-        case Failure(exception) => Future.failed(UseCaseError(key, s"更新に失敗しました。詳細: ${exception.getMessage}"))
+        case Failure(exception) => Future.failed(UseCaseError.create(key, s"更新に失敗しました。詳細: ${exception.getMessage}"))
       }
 
     def toEff[R: _future]: Eff[R, T] = fromFuture(futureValue)
@@ -36,7 +33,7 @@ package object usecase {
 
   implicit class EitherDomainErrorOps[T](eitherValue: Either[DomainError, T]) {
     def toUCErrorIfLeft(): Either[UseCaseError, T] =
-      eitherValue.left.map(err => UseCaseError(err.detail))
+      eitherValue.left.map(err => UseCaseError.create(err.detail))
   }
 
   implicit class EitherUCErrorOps[T](eitherValue: Either[UseCaseError, T]) {
