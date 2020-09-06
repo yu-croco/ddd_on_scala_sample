@@ -1,7 +1,7 @@
 package domain.model.monster
 
 import cats.data.Validated
-import domain.ValidationResult
+import domain.{DomainIDFactory, ValidationResult}
 import domain.helpers.DomainError
 import domain.model.hunter.{Hunter, HunterAttackDamage, HunterDefensePower, HunterOffensePower}
 import domain.validation._
@@ -28,12 +28,8 @@ case class Monster(
 
 case class MonsterId(value: String) extends AnyVal
 
-object MonsterId {
-  def error: DomainError                             = DomainError.create("hunterId", "IDの形式に誤りがあります")
-  val UUID                                           = java.util.UUID.randomUUID.toString
-  private val reg                                    = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}".r
-  def test(t: String): Boolean                       = reg.findFirstMatchIn(t).isDefined
-  def create(t: String): ValidationResult[MonsterId] = Validated.condNel(test(t), apply(t), error)
+object MonsterId extends DomainIDFactory[MonsterId] {
+  def error: DomainError = DomainError.create("hunterId", "IDの形式に誤りがあります")
 }
 
 case class MonsterName(value: String) extends AnyVal
