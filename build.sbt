@@ -3,7 +3,23 @@ version := "1.0"
 
 resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
-ThisBuild / scalaVersion := "2.13.3"
+inThisBuild(
+  List(
+    scalaVersion := "2.13.3",
+    semanticdbEnabled := true,
+    semanticdbVersion := scalafixSemanticdb.revision
+  )
+)
+scalacOptions ++= Seq(
+  "-deprecation",
+  "-feature",
+  "-unchecked",
+  "-Xlint",
+  "-Ywarn-dead-code",
+  "-Ywarn-numeric-widen",
+  "-Ywarn-unused",
+  "-Ywarn-value-discard"
+)
 
 libraryDependencies ++= Seq(ehcache , ws , specs2 % Test , guice )
 
