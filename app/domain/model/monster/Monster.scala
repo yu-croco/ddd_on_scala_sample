@@ -1,7 +1,6 @@
 package domain.model.monster
 
-import cats.data.Validated
-import domain.{DomainIDFactory, ValidationResult}
+import domain.DomainIDFactory
 import domain.helpers.DomainError
 import domain.model.hunter.{Hunter, HunterAttackDamage, HunterDefensePower, HunterOffensePower}
 import domain.validation._
