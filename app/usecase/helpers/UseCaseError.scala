@@ -2,9 +2,9 @@ package usecase.helpers
 
 import cats.data.NonEmptyList
 
-case class UseCaseError(error: NonEmptyList[(String, String)]) extends Throwable
+case class UseCaseError(error: NonEmptyList[String]) extends Throwable
 
 object UseCaseError {
-  def create(key: String, message: String): UseCaseError          = apply(NonEmptyList.one(key -> message))
-  def create(error: NonEmptyList[(String, String)]): UseCaseError = apply(error)
+  def create(message: String): UseCaseError             = apply(NonEmptyList.one(message))
+  def create(error: NonEmptyList[String]): UseCaseError = apply(error)
 }

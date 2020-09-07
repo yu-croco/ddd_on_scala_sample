@@ -11,7 +11,7 @@ case class TakenMaterialValidation(monster: Monster) {
       .cond(
         !monster.life.isZero,
         monster.materials.head,
-        DomainError.create("monster", "まだ生きているので素材を剥ぎ取れません")
+        DomainError.create("モンスターはまだ生きているので素材を剥ぎ取れません")
       )
       .toValidatedNel
 }

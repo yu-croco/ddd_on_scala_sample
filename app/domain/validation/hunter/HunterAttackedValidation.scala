@@ -12,7 +12,7 @@ case class HunterAttackedValidation(hunter: Hunter) {
       .cond(
         test,
         hunter.copy(life = calculateRestOfLife(givenDamage)),
-        DomainError.create("hunter", "既にこのハンターは倒しています")
+        DomainError.create("このハンターは既に倒しています")
       )
       .toValidatedNel
 

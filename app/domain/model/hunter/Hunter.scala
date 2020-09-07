@@ -26,7 +26,7 @@ case class Hunter(
 
 case class HunterId(value: String) extends AnyVal
 object HunterId extends DomainIDFactory[HunterId] {
-  def error: DomainError = DomainError.create("hunterId", "IDの形式に誤りがあります")
+  def error: DomainError = DomainError.create("hunterIdの形式に誤りがあります")
 }
 
 case class HunterName(value: String) extends AnyVal
