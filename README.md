@@ -1,21 +1,22 @@
 # DDD on Scala
 Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDomain-Driven Designで実装した。
 
-DDDの基本的なアーキテクチャ（各層での責任分け/エラーの積み上げ/Value Objectの完全コンストラクタパターンなど）としては [KOSKA社](https://www.koska.jp/) で実践しているものを参考にしている。
+このアプリケーションのアーキテクチャや考え方の基礎（各層での責任分け, エラーの積み上げ, Value Objectの完全コンストラクタパターンなど）は [KOSKA社](https://www.koska.jp/) で実践しているものを参考にしている。
 
 ## 構成
-アプリケーション全体としては以下の構成となっている。
-いわゆるオニオンアーキテクチャに近い形である。
+アプリケーション全体としては以下の構成となっており、いわゆるオニオンアーキテクチャの形式である。
 ![architecture](./public/images/architecture.png)
 
-読み取りアクセス（GET）と書き込みアクセス（POST/PUT/DELETE）では処理フローを以下のように分けている（アーキテクチャレベルでの話ではないのでCQRSというよりはCQSかな？）。
+読み取りアクセス（GET）と書き込みアクセス（POST/PUT/DELETE）では処理フローを以下のように分けている（CQRS）。
 ![access flow](./public/images/access_flow.png)
 
 ## ドメインモデル図
-
+このレポジトリで扱っているドメインモデル図は以下の通り。
 ![domain model](./public/images/domain_model.png)
 
 ## ユースケース図
+各ユースケースは対応するShellScriptを用意しているので、サーバーを起動してSeedデータを投入した後に実行することで動作確認することが出来る。
+
 ### ハンター主体のケース
 - ハンターがモンスターを攻撃する
     - 確認コマンド: `bin/attackMonster.sh`
