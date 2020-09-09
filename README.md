@@ -1,6 +1,8 @@
 # DDD on Scala
 Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDomain-Driven Designで実装した。
 
+DDDの基本的なアーキテクチャ（各層での責任分け/エラーの積み上げ/Value Objectの完全コンストラクタパターンなど）としては [KOSKA社](https://www.koska.jp/) で実践しているものを参考にしている。
+
 ## 構成
 アプリケーション全体としては以下の構成となっている。
 いわゆるオニオンアーキテクチャに近い形である。
