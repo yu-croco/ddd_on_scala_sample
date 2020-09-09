@@ -1,4 +1,4 @@
-# DDD on Scala
+# DDD on Scala Sample
 Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDomain-Driven Designで実装した。
 
 このアプリケーションのアーキテクチャや考え方の基礎（各層での責任分け, エラーの積み上げ, Value Objectの完全コンストラクタパターンなど）は [KOSKA社](https://www.koska.jp/) で実践しているものを参考にしている。
@@ -8,6 +8,7 @@ Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDo
 ![architecture](./public/images/architecture.png)
 
 読み取りアクセス（GET）と書き込みアクセス（POST/PUT/DELETE）では処理フローを以下のように分けている（CQRS）。
+
 ![access flow](./public/images/access_flow.png)
 
 ## ドメインモデル図
