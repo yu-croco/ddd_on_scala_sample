@@ -2,7 +2,7 @@ package adapter.controllers.helpers
 
 import adapter.controllers.RequestJsonTypeError
 import adapter.controllers.helpers.RequestJsonTypeError.ErrorDetail
-import adapter.helper.AdapterError
+import adapter.helpers.AdapterError
 import cats.data.NonEmptyList
 import play.api.http.{Status, Writeable}
 import play.api.libs.json._

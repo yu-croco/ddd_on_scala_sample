@@ -1,6 +1,6 @@
 package adapter.json.hunter.getmaterial
 
-import adapter.helper.AdapterError
+import adapter.helpers.AdapterError
 import cats.data.Validated
 import cats.implicits._
 import domain.model.hunter.HunterId
@@ -23,6 +23,6 @@ object AttackMonsterRequest {
 
     (hId, monsterId)
       .mapN(GetMaterialFromMonster.apply)
-      .leftMap(e => AdapterError(e.flatMap(_.detail)))
+      .leftMap(e => AdapterError.create(e.flatMap(_.detail)))
   }
 }

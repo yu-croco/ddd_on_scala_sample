@@ -1,4 +1,4 @@
-package adapter.helper
+package adapter.helpers
 
 import cats.data.NonEmptyList
 

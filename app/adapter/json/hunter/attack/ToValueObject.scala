@@ -1,5 +1,5 @@
 package adapter.json.hunter.attack
-import adapter.helper.AdapterError
+import adapter.helpers.AdapterError
 import cats.data.Validated
 import cats.implicits._
 import domain.model.hunter.HunterId
