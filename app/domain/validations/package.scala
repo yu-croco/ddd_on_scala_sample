@@ -1,10 +1,9 @@
-package domain.helpers.ops
+package domain
 
 import cats.data.Validated
-import domain.ValidationResult
 import domain.helpers.DomainError
 
-object DomainValidationOps {
+package object validation {
   implicit class DomainValidationOps[T](self: ValidationResult[T]) {
     def foldToEither(): Either[DomainError, T] =
       self.fold(
@@ -13,15 +12,9 @@ object DomainValidationOps {
       )
   }
 
-  def execWithValidation[T](test: Boolean, rightResult: T, leftResult: DomainError): Either[DomainError, T] =
+  def singleValidate[T](test: Boolean, rightResult: T, leftResult: DomainError): Either[DomainError, T] =
     validate[T](test, rightResult, leftResult).foldToEither()
 
   private def validate[T](test: Boolean, rightResult: T, leftResult: DomainError): ValidationResult[T] =
-    Validated
-      .cond(
-        test,
-        rightResult,
-        leftResult
-      )
-      .toValidatedNel
+    Validated.cond(test, rightResult, leftResult).toValidatedNel
 }
