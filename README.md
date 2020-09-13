@@ -42,8 +42,9 @@ Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDo
 - cats
 - Eff
 - Domain-Driven Design
-- CQS
-- Docker
+- CQRS
+- Docker: 19.03.12
+- docker-compose: 1.26.2
 
 ## 構成
 
