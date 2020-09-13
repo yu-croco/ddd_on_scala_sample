@@ -1,10 +1,10 @@
-package domain.validations.monster
+package domain.specs.monster
 
 import domain.helpers.DomainError
 import domain.model.monster.{Monster, MonsterMaterial}
 import domain.validation.singleValidate
 
-case class TakenMaterialValidation(monster: Monster) {
+case class TakenMaterialSpec(monster: Monster) {
   def validate: Either[DomainError, MonsterMaterial] =
     singleValidate[MonsterMaterial](
       monster.life.isZero,

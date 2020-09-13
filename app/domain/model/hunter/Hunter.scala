@@ -3,7 +3,7 @@ package domain.model.hunter
 import domain.DomainIDFactory
 import domain.helpers.DomainError
 import domain.model.monster._
-import domain.validations.hunter.HunterAttackedValidation
+import domain.specs.hunter.HunterAttackedSpec
 
 case class Hunter(
     id: HunterId,
@@ -18,7 +18,7 @@ case class Hunter(
     monster.attackedBy(givenDamage)
 
   def attackedBy(givenDamage: MonsterAttackDamage): Either[DomainError, Hunter] =
-    HunterAttackedValidation(this).validate(givenDamage)
+    HunterAttackedSpec(this).validate(givenDamage)
 
   def getMonsterMaterial(monster: Monster): Either[DomainError, MonsterMaterial] = monster.takenMaterial()
 }

@@ -4,7 +4,7 @@ import cats.data.Validated
 import domain.helpers.DomainError
 
 package object validation {
-  implicit class DomainValidationOps[T](self: ValidationResult[T]) {
+  implicit class DomainSpecOps[T](self: ValidationResult[T]) {
     def foldToEither(): Either[DomainError, T] =
       self.fold(
         e => Left(e.reduceLeft(_ ++ _)),

@@ -3,7 +3,7 @@ package domain.model.monster
 import domain.DomainIDFactory
 import domain.helpers.DomainError
 import domain.model.hunter.{Hunter, HunterAttackDamage, HunterDefensePower, HunterOffensePower}
-import domain.validations.monster.{MonsterAttackedValidation, TakenMaterialValidation}
+import domain.specs.monster.{MonsterAttackedSpec, TakenMaterialSpec}
 
 case class Monster(
     id: MonsterId,
@@ -15,13 +15,13 @@ case class Monster(
     materials: Seq[MonsterMaterial]
 ) {
   def attackedBy(givenDamage: HunterAttackDamage): Either[DomainError, Monster] =
-    MonsterAttackedValidation(this).validate(givenDamage)
+    MonsterAttackedSpec(this).validate(givenDamage)
 
   def attack(hunter: Hunter, damage: MonsterAttackDamage): Either[DomainError, Hunter] =
     hunter.attackedBy(damage)
 
   def takenMaterial(): Either[DomainError, MonsterMaterial] =
-    TakenMaterialValidation(this).validate
+    TakenMaterialSpec(this).validate
 }
 
 case class MonsterId(value: String) extends AnyVal

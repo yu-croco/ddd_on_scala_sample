@@ -1,11 +1,11 @@
-package domain.validations.hunter
+package domain.specs.hunter
 
 import domain.helpers.DomainError
 import domain.model.hunter.Hunter
 import domain.model.monster.MonsterAttackDamage
 import domain.validation.singleValidate
 
-case class HunterAttackedValidation(hunter: Hunter) {
+case class HunterAttackedSpec(hunter: Hunter) {
   def validate(givenDamage: MonsterAttackDamage): Either[DomainError, Hunter] =
     singleValidate[Hunter](
       !hunter.life.isZero,
