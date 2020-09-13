@@ -13,10 +13,10 @@ object DomainValidationOps {
       )
   }
 
-  def execWithValidation[T](test: => Boolean, rightResult: => T, leftResult: => DomainError): Either[DomainError, T] =
+  def execWithValidation[T](test: Boolean, rightResult: T, leftResult: DomainError): Either[DomainError, T] =
     validate[T](test, rightResult, leftResult).foldToEither()
 
-  private def validate[T](test: => Boolean, rightResult: => T, leftResult: => DomainError): ValidationResult[T] =
+  private def validate[T](test: Boolean, rightResult: T, leftResult: DomainError): ValidationResult[T] =
     Validated
       .cond(
         test,
