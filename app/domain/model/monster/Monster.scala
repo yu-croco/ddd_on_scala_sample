@@ -2,9 +2,8 @@ package domain.model.monster
 
 import domain.DomainIDFactory
 import domain.helpers.DomainError
+import domain.helpers.ops.DomainValidationOps._
 import domain.model.hunter.{Hunter, HunterAttackDamage, HunterDefensePower, HunterOffensePower}
-import domain.validation._
-import domain.validation.monster.{MonsterAttackedValidation, TakenMaterialValidation}
 
 case class Monster(
     id: MonsterId,
@@ -16,13 +15,28 @@ case class Monster(
     materials: Seq[MonsterMaterial]
 ) {
   def attackedBy(givenDamage: HunterAttackDamage): Either[DomainError, Monster] =
-    MonsterAttackedValidation(this).validate(givenDamage, !this.life.isZero).foldToEither()
+    execWithValidation[Monster](
+      !this.life.isZero,
+      this.copy(life = calculateRestOfLife(givenDamage)),
+      DomainError.create("このモンスターは既に倒しています")
+    )
 
-  def attack(hunter: Hunter, damage: MonsterAttackDamage) =
+  def attack(hunter: Hunter, damage: MonsterAttackDamage): Either[DomainError, Hunter] =
     hunter.attackedBy(damage)
 
   def takenMaterial(): Either[DomainError, MonsterMaterial] =
-    TakenMaterialValidation(this).validate().foldToEither()
+    execWithValidation[MonsterMaterial](
+      !this.life.isZero,
+      this.materials.head,
+      DomainError.create("モンスターはまだ生きているので素材を剥ぎ取れません")
+    )
+
+  private def calculateRestOfLife(givenDamage: HunterAttackDamage): MonsterLife = {
+    val diff = this.life - givenDamage
+
+    if (diff >= 0) diff
+    else this.life.toZero()
+  }
 }
 
 case class MonsterId(value: String) extends AnyVal
