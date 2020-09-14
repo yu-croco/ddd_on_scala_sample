@@ -1,4 +1,4 @@
-package infrastructure.ops
+package infrastructure.helpers.ops
 
 import domain.model.hunter._
 import dto.Tables._

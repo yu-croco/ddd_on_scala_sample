@@ -1,6 +1,6 @@
 package infrastructure.repositoryimpl
 
-import infrastructure.ops.{Ops, UuidGeneratorOps}
+import infrastructure.helpers.ops.{Ops, UuidGeneratorOps}
 import play.api.db.slick.HasDatabaseConfigProvider
 import slick.jdbc.PostgresProfile
 
