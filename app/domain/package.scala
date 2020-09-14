@@ -4,13 +4,25 @@ import domain.helpers.DomainError
 package object domain {
   type ValidationResult[T] = ValidatedNel[DomainError, T]
 
-  trait DomainIDFactory[T] {
+  trait BaseFactory[S, T] {
+    def error: DomainError
+    def apply(value: S): T
+    def test(value: S): Boolean
+    def create(value: S): ValidationResult[T] = Validated.condNel(test(value), apply(value), error)
+  }
+
+  trait DomainIDFactory[T] extends BaseFactory[String, T] {
     val UUID = java.util.UUID.randomUUID.toString
     val reg  = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}".r
 
-    def error: DomainError
-    def apply(t: String): T
-    def test(t: String): Boolean               = reg.findFirstMatchIn(t).isDefined
-    def create(t: String): ValidationResult[T] = Validated.condNel(test(t), apply(t), error)
+    override def test(value: String): Boolean = reg.findFirstMatchIn(value).isDefined
+  }
+
+  trait StringVOFactory[T] extends BaseFactory[String, T] {
+    override def test(value: String): Boolean = value.length != 0
+  }
+
+  trait LongVOFactory[T] extends BaseFactory[Long, T] {
+    override def test(value: Long): Boolean = value > 0
   }
 }
