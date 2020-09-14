@@ -2,7 +2,7 @@ import cats.data.{Validated, ValidatedNel}
 import domain.helpers.DomainError
 
 package object domain {
-  type ValidationResult[U] = ValidatedNel[DomainError, U]
+  type ValidationResult[T] = ValidatedNel[DomainError, T]
 
   trait DomainIDFactory[T] {
     val UUID = java.util.UUID.randomUUID.toString
