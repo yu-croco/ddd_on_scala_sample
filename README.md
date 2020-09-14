@@ -1,7 +1,7 @@
 # DDD on Scala Sample
-Scala（PlayFramework）を使い、なんちゃってモンハンの世界をDomain-Driven Designで実装した。
+DDDに基づいた実装例として、Scala（PlayFramework）を使って簡易版モンハンの世界を設計/実装した（DDDは設計思想のため具体的な実装方式は複数存在するが、そのうちの一つとしての位置づけ）。
 
-DDDを実践するにあたってのアーキテクチャや考え方の基礎は [KOSKA社](https://www.koska.jp/) で実践しているものを参考にしている。
+DDDを実践するにあたってのアーキテクチャや考え方の基礎は [KOSKA社](https://www.koska.jp/) で実践しているものを参考とした上で、自分なりに手を加えている。
 
 ## 構成
 アプリケーション全体としては以下の構成となっており、いわゆるオニオンアーキテクチャの形式である。
@@ -45,6 +45,13 @@ DDDを実践するにあたってのアーキテクチャや考え方の基礎�
 - CQRS
 - Docker: 19.03.12
 - docker-compose: 1.26.2
+
+## DDDらしさを出すためのTips
+- Value Objectを生成する際に `必ず成功or失敗のどちらかとなる` ファクトリメソッドを用意することで、オブジェクトの生成が不完全なものとならないようにした（完全コンストラクタの実現）
+    - hunterId/monsterIdがそれにあたる（他のValue Objectでは機能としてあまり使用していないので省略）
+- [cats](https://github.com/typelevel/cats) を用いることでAdapter層で発生したエラー全てを積み上げ、レスポンスに全件返すようにしている
+- [Eff](https://github.com/atnos-org/eff) を用いることでUseCase層での型ネストを解消してコードが仕様を反映している（UseCase層のコードを読むことでそのまま仕様として意味が通る）状態を実現
+- 仕様クラスを用いることで、domain層のコードが肥大化しないようにした
 
 ## 構成
 
@@ -94,7 +101,8 @@ $ bin/seed.sh
 - [evolutions](https://www.playframework.com/documentation/2.8.x/Evolutions) と [slick-codegen](https://scala-slick.org/doc/3.2.0/code-generation.html) を使っている
   - Qiitaの[PlayFramework(on Scala)にslick(on PostgreSQL)/slick-codegenを入れる](https://qiita.com/yu-croco/items/47dff9d653803fce883a) に詳細を記載しているので、興味がある方はどうぞ
 
-## 参考
+## 参考にした情報
+- [j5ik2o/spetstore(github)](https://github.com/j5ik2o/spetstore)
 - [ddd-on-scala(github)](https://github.com/crossroad0201/ddd-on-scala)
 - [ddd-on-scala(Speaker Deck)](https://speakerdeck.com/crossroad0201/scala-on-ddd)
 - [実践DDD本 第7章「ドメインサービス」～複数の物を扱うビジネスルール～](https://codezine.jp/article/detail/10318)
