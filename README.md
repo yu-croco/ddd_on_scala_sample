@@ -53,7 +53,6 @@ Golang版はこちら: [ddd_on_golang](https://github.com/yu-croco/ddd_on_golang
     - hunterId/monsterIdがそれにあたる（他のValue Objectでは機能としてあまり使用していないので省略）
 - [cats](https://github.com/typelevel/cats) を用いることでAdapter層で発生したエラー全てを積み上げ、レスポンスに全件返すようにしている
 - [Eff](https://github.com/atnos-org/eff) を用いることでUseCase層での型ネストを解消してコードが仕様を反映している（UseCase層のコードを読むことでそのまま仕様として意味が通る）状態を実現
-    - このレポジトリで実装しているところはこちらにまとめています: [ScalaのEffを使ってDDDのUseCase層をいい感じに書いてみる](https://qiita.com/yu-croco/items/859328beda388f4f4393)
 - implicit classを用いることで表現力を上げる
     - UseCase層で `toUCErrorIfNotExists` や `raiseIfFutureFailed` などを用意することで、英語としてある程度自然に読めるコードになる
 - 仕様クラスを用いることで、domain層のコードが肥大化しないようにした
