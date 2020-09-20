@@ -48,12 +48,16 @@ Golang版はこちら: [ddd_on_golang](https://github.com/yu-croco/ddd_on_golang
 - Docker: 19.03.12
 - docker-compose: 1.26.2
 
-## DDDらしさを出すためのTips
+## DDDらしさを引き出すためのTips
 - Value Objectを生成する際に `必ず成功or失敗のどちらかとなる` ファクトリメソッドを用意することで、オブジェクトの生成が不完全なものとならないようにした（完全コンストラクタの実現）
     - hunterId/monsterIdがそれにあたる（他のValue Objectでは機能としてあまり使用していないので省略）
 - [cats](https://github.com/typelevel/cats) を用いることでAdapter層で発生したエラー全てを積み上げ、レスポンスに全件返すようにしている
 - [Eff](https://github.com/atnos-org/eff) を用いることでUseCase層での型ネストを解消してコードが仕様を反映している（UseCase層のコードを読むことでそのまま仕様として意味が通る）状態を実現
+    - このレポジトリで実装しているところはこちらにまとめています: [ScalaのEffを使ってDDDのUseCase層をいい感じに書いてみる](https://qiita.com/yu-croco/items/859328beda388f4f4393)
+- implicit classを用いることで表現力を上げる
+    - UseCase層で `toUCErrorIfNotExists` や `raiseIfFutureFailed` などを用意することで、英語としてある程度自然に読めるコードになる
 - 仕様クラスを用いることで、domain層のコードが肥大化しないようにした
+    - この規模のアプリケーションで分離するのは冗長であるが、クラスの役割をより細かくすることで凝集度は上がるかなと思い
 
 ## 構成
 
@@ -66,10 +70,11 @@ Golang版はこちら: [ddd_on_golang](https://github.com/yu-croco/ddd_on_golang
 │    ├── adapter // Adapter layer(e.g. controllers)
 │    ├── domain // Domain layer
 │    ├── infrastructure // infra layer(e.g. DTO, repositoryImpl)
+│    ├── query // query processor
 │    └── usecase // useCase(application) layer
 ├── bin // 動作確認用のツールなど
 ├── build.sbt
-├── codegen
+├── codegen // db migration
 ├── conf
 ├── docker-compose.yml
 ...
