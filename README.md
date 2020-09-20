@@ -6,12 +6,36 @@ DDDを実践するにあたってのアーキテクチャや考え方の基礎�
 Golang版はこちら: [ddd_on_golang](https://github.com/yu-croco/ddd_on_golang)
 
 ## 構成
+### ベース
+
 アプリケーション全体としては以下の構成となっており、いわゆるオニオンアーキテクチャの形式である。
 ![architecture](./public/images/architecture.png)
 
 読み取りアクセス（GET）と書き込みアクセス（POST/PUT/DELETE）では処理フローを以下のように分けている（CQRS）。
 
 ![access flow](./public/images/access_flow.png)
+ 
+
+## ディレクトリ分け
+
+```
+├── Dockerfile
+├── DockerfileDb
+├── README.md
+├── app
+│    ├── Module.scala // DI
+│    ├── adapter // Adapter layer(e.g. controllers)
+│    ├── domain // Domain layer
+│    ├── infrastructure // infra layer(e.g. DTO, repositoryImpl)
+│    ├── query // query processor
+│    └── usecase // useCase(application) layer
+├── bin // 動作確認用のツールなど
+├── build.sbt
+├── codegen // db migration
+├── conf
+├── docker-compose.yml
+...
+```
 
 ## ドメインモデル図
 このレポジトリで扱っているドメインモデル図は以下の通り。
@@ -57,27 +81,6 @@ Golang版はこちら: [ddd_on_golang](https://github.com/yu-croco/ddd_on_golang
     - UseCase層で `toUCErrorIfNotExists` や `raiseIfFutureFailed` などを用意することで、英語としてある程度自然に読めるコードになる
 - 仕様クラスを用いることで、domain層のコードが肥大化しないようにした
     - この規模のアプリケーションで分離するのは冗長であるが、クラスの役割をより細かくすることで凝集度は上がるかなと思い
-
-## 構成
-
-```
-├── Dockerfile
-├── DockerfileDb
-├── README.md
-├── app
-│    ├── Module.scala // DI
-│    ├── adapter // Adapter layer(e.g. controllers)
-│    ├── domain // Domain layer
-│    ├── infrastructure // infra layer(e.g. DTO, repositoryImpl)
-│    ├── query // query processor
-│    └── usecase // useCase(application) layer
-├── bin // 動作確認用のツールなど
-├── build.sbt
-├── codegen // db migration
-├── conf
-├── docker-compose.yml
-...
-```
 
 ## セットアップ
 
