@@ -3,7 +3,7 @@ DDDに基づいた実装例として、Scala（PlayFramework）を使って簡�
 
 DDDを実践するにあたってのアーキテクチャや考え方の基礎は [KOSKA社](https://www.koska.jp/) で実践しているものを参考とした上で、自分なりに手を加えている。
 
-Golang版はこちら: [ddd_on_golang](https://github.com/yu-croco/ddd_on_golang)
+Golang版はこちら: [ddd_on_golang_sample](https://github.com/yu-croco/ddd_on_golang_sample)
 
 ## 構成
 ### ベース
