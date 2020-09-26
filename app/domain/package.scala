@@ -18,12 +18,4 @@ package object domain {
 
     override def test(value: String): Boolean = reg.findFirstMatchIn(value).isDefined
   }
-
-  trait StringVOFactory[T] extends BaseFactory[String, T] {
-    override def test(value: String): Boolean = value.length != 0
-  }
-
-  trait LongVOFactory[T] extends BaseFactory[Long, T] {
-    override def test(value: Long): Boolean = value > 0
-  }
 }

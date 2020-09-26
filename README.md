@@ -74,7 +74,8 @@ Golang版はこちら: [ddd_on_golang_sample](https://github.com/yu-croco/ddd_on
 
 ## DDDらしさを引き出すためのTips
 - Value Objectを生成する際に `必ず成功or失敗のどちらかとなる` ファクトリメソッドを用意することで、オブジェクトの生成が不完全なものとならないようにした（完全コンストラクタの実現）
-    - hunterId/monsterIdがそれにあたる（他のValue Objectでは機能としてあまり使用していないので省略）
+    - Value Objectが何らかの存在条件を持っている場合（例えば `5文字以上20文字以下のStringであること` など）には、生成時にこの仕組を取り入れることで条件を満たないValue Objectの生成を防げるので有効である
+    - このレポジトリでは試験的にhunterId/monsterIdにその機能を取り入れた（それら以外のValue Objectは特別な条件を有していないため省略）
 - [cats](https://github.com/typelevel/cats) を用いることでAdapter層で発生したエラー全てを積み上げ、レスポンスに全件返すようにしている
 - [Eff](https://github.com/atnos-org/eff) を用いることでUseCase層での型ネストを解消してコードが仕様を反映している（UseCase層のコードを読むことでそのまま仕様として意味が通る）状態を実現
 - implicit classを用いることで表現力を上げる

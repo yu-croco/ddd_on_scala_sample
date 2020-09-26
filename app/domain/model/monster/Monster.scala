@@ -3,7 +3,7 @@ package domain.model.monster
 import domain.helpers.DomainError
 import domain.model.hunter.{Hunter, HunterAttackDamage, HunterDefensePower, HunterOffensePower}
 import domain.specs.monster.{MonsterAttackedSpec, TakenMaterialSpec}
-import domain.{DomainIDFactory, LongVOFactory, StringVOFactory}
+import domain.DomainIDFactory
 
 case class Monster(
     id: MonsterId,
@@ -31,9 +31,6 @@ object MonsterId extends DomainIDFactory[MonsterId] {
 }
 
 case class MonsterName(value: String) extends AnyVal
-object MonsterName extends StringVOFactory[MonsterName] {
-  def error: DomainError = DomainError.create("monsterNameには1文字以上の値を入力してください")
-}
 
 case class MonsterLife(value: Long) extends AnyVal {
   def isZero                             = value == 0
@@ -42,16 +39,8 @@ case class MonsterLife(value: Long) extends AnyVal {
   def toZero()                           = MonsterLife(0)
 }
 
-object MonsterLife extends LongVOFactory[MonsterLife] {
-  def error: DomainError = DomainError.create("monsterLifeには1以上の値を入力してください")
-}
-
 case class MonsterDefensePower(value: Long) extends AnyVal {
   def >=(offense: HunterOffensePower): Boolean = this.value >= offense.value
-}
-
-object MonsterDefensePower extends LongVOFactory[MonsterDefensePower] {
-  def error: DomainError = DomainError.create("monsterDefensePowerには1以上の値を入力してください")
 }
 
 case class MonsterOffensePower(value: Long) extends AnyVal {
@@ -59,12 +48,4 @@ case class MonsterOffensePower(value: Long) extends AnyVal {
   def +(other: MonsterOffensePower)  = MonsterOffensePower(this.value + other.value)
 }
 
-object MonsterOffensePower extends LongVOFactory[MonsterOffensePower] {
-  def error: DomainError = DomainError.create("monsterOffensePowerには1以上の値を入力してください")
-}
-
 case class MonsterAttackDamage(value: Long) extends AnyVal
-
-object MonsterAttackDamage extends LongVOFactory[MonsterAttackDamage] {
-  def error: DomainError = DomainError.create("monsterAttackDamageには1以上の値を入力してください")
-}
