@@ -7,5 +7,5 @@ case class DomainError(detail: NonEmptyList[String]) extends Throwable {
 }
 
 object DomainError {
-  def create(message: String) = DomainError(NonEmptyList.one(message))
+  def create(message: String): DomainError = DomainError.apply(NonEmptyList.one(message))
 }

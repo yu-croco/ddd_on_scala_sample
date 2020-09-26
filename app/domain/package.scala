@@ -11,6 +11,7 @@ package object domain {
     def create(value: S): ValidationResult[T] = Validated.condNel(test(value), apply(value), error)
   }
 
+  // 簡素なUUIDを使っているケースを想定
   trait DomainIDFactory[T] extends BaseFactory[String, T] {
     val UUID = java.util.UUID.randomUUID.toString
     val reg  = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}".r
