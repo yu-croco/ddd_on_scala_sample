@@ -5,6 +5,8 @@ DDDを実践するにあたってのアーキテクチャや考え方の基礎�
 
 Golang版はこちら: [ddd_on_golang_sample](https://github.com/yu-croco/ddd_on_golang_sample)
 
+Scala版とGolang版を実装してみての比較まとめはこちら: [ScalaとGolangでDDDを実装比較してみた](https://zenn.dev/nameless_gyoza/articles/e30d9e1283ab5b9576ff)
+
 ## 構成
 ### ベース
 
